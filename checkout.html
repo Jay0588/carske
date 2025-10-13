@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Carske</title>
+    <script src="js/cart.js"></script>
+    <script src="js/mpesa-payment.js"></script>
     <style>
         /* Reset and base styles */
         * {
@@ -72,6 +74,12 @@
         .cart-icon {
             position: relative;
             cursor: pointer;
+            background-image: url('carticon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 30px;
+            height: 30px;
+            display: inline-block;
         }
         
         .cart-count {
@@ -210,20 +218,21 @@
         /* Payment methods */
         .payment-methods {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            justify-content: center;
             margin-bottom: 20px;
         }
         
         .payment-method {
-            flex: 1;
-            min-width: 120px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .payment-method:hover {
@@ -236,21 +245,19 @@
         }
         
         .payment-method img {
-            height: 30px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .payment-method-title {
+            font-weight: 600;
+            font-size: 1.2rem;
             margin-bottom: 10px;
         }
         
-        .card-icons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .card-icon {
-            width: 40px;
-            height: 25px;
-            object-fit: contain;
-            opacity: 0.7;
+        .payment-method-description {
+            color: #666;
+            font-size: 0.9rem;
         }
         
         /* Order summary */
@@ -364,6 +371,108 @@
             justify-content: space-between;
             margin-bottom: 40px;
             position: relative;
+        }
+        
+        .payment-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .price-display {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #00c79c;
+            margin-bottom: 2rem;
+        }
+        
+        .pay-button {
+            padding: 0.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            background-color: #00c79c;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .pay-button:hover {
+            background-color: #009e7c;
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            color: #555;
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .divider::before {
+            left: 0;
+        }
+        
+        .divider::after {
+            right: 0;
+        }
+        
+        .alternative-payments {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .alt-pay-button {
+            padding: 0.7rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .alt-pay-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .paypal {
+            background-color: #003087;
+        }
+        
+        .paypal:hover {
+            background-color: #002366;
+        }
+        
+        .stripe {
+            background-color: #635bff;
+        }
+        
+        .stripe:hover {
+            background-color: #4a42e6;
         }
         
         .checkout-steps::before {
@@ -536,6 +645,8 @@
     </style>
 </head>
 <body>
+    <!-- Include cart.js -->
+    <script src="cart.js" defer></script>
     <!-- Header section -->
     <header>
         <div class="container header-container">
@@ -630,29 +741,6 @@
                                     <label for="city">City</label>
                                     <input type="text" id="city" class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="state">State/Province</label>
-                                    <input type="text" id="state" class="form-control" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="zip">Zip/Postal Code</label>
-                                    <input type="text" id="zip" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="country">Country</label>
-                                    <select id="country" class="form-control" required>
-                                        <option value="">Select Country</option>
-                                        <option value="US">United States</option>
-                                        <option value="CA">Canada</option>
-                                        <option value="UK">United Kingdom</option>
-                                        <option value="AU">Australia</option>
-                                        <option value="DE">Germany</option>
-                                        <option value="FR">France</option>
-                                    </select>
-                                </div>
                             </div>
                             
                             <div class="form-check">
@@ -681,68 +769,6 @@
                             <div class="form-check">
                                 <input type="radio" name="shipping" id="next-day" value="next-day">
                                 <label for="next-day">Next Day Delivery (order by 2pm) - $14.99</label>
-                            </div>
-                        </div>
-                        
-                        <!-- Payment information -->
-                        <div class="form-section">
-                            <h2 class="form-section-title">
-                                <span class="section-number">3</span>
-                                Payment Information
-                            </h2>
-                            
-                            <div class="payment-methods">
-                                <div class="payment-method selected" data-method="credit-card">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/179/179457.png" alt="Credit Card">
-                                    <p>Credit Card</p>
-                                </div>
-                                
-                                <div class="payment-method" data-method="paypal">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174861.png" alt="PayPal">
-                                    <p>PayPal</p>
-                                </div>
-                                
-                                <div class="payment-method" data-method="apple-pay">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968279.png" alt="Apple Pay">
-                                    <p>Apple Pay</p>
-                                </div>
-                            </div>
-                            
-                            <div id="credit-card-form">
-                                <div class="form-group">
-                                    <label for="card-name">Name on Card</label>
-                                    <input type="text" id="card-name" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="card-number">Card Number</label>
-                                    <input type="text" id="card-number" class="form-control" placeholder="XXXX XXXX XXXX XXXX" required>
-                                    <div class="card-icons">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/349/349221.png" alt="Visa" class="card-icon">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/349/349228.png" alt="MasterCard" class="card-icon">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/349/349230.png" alt="American Express" class="card-icon">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/349/349222.png" alt="Discover" class="card-icon">
-                                    </div>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="expiry">Expiration Date</label>
-                                        <input type="text" id="expiry" class="form-control" placeholder="MM/YY" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cvv">CVV</label>
-                                        <input type="text" id="cvv" class="form-control" placeholder="XXX" required>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id="paypal-form" style="display: none;">
-                                <p>You will be redirected to PayPal to complete your payment.</p>
-                            </div>
-                            
-                            <div id="apple-pay-form" style="display: none;">
-                                <p>You will be prompted to complete your payment with Apple Pay.</p>
                             </div>
                         </div>
                     </form>
@@ -804,7 +830,25 @@
                         <span id="order-total">$95.43</span>
                     </div>
                     
-                    <button type="submit" class="place-order-btn" id="place-order">Place Order</button>
+                    <!-- Mpesa Payment Section -->
+                    <div class="payment-section">
+                        <div class="price-display" id="checkout-total">KES 95.43</div>
+                        
+                        <button id="payButton" class="pay-button">
+                            <i class="fas fa-credit-card"></i> Lipa na Mpesa
+                        </button>
+                        
+                        <div class="divider">or pay with</div>
+                        
+                        <div class="alternative-payments">
+                            <button id="paypalButton" class="alt-pay-button paypal">
+                                <i class="fab fa-paypal"></i> PayPal
+                            </button>
+                            <button id="stripeButton" class="alt-pay-button stripe">
+                                <i class="fab fa-cc-stripe"></i> Stripe
+                            </button>
+                        </div>
+                    </div>
                     <a href="cart.html" class="back-to-cart">Back to Cart</a>
                 </div>
             </div>
@@ -851,127 +895,101 @@
             </div>
         </div>
     </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const payButton = document.getElementById('payButton');
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Payment method selection
-            const paymentMethods = document.querySelectorAll('.payment-method');
-            const creditCardForm = document.getElementById('credit-card-form');
-            const paypalForm = document.getElementById('paypal-form');
-            const applePayForm = document.getElementById('apple-pay-form');
-            
-            paymentMethods.forEach(method => {
-                method.addEventListener('click', function() {
-                    // Update selected method
-                    paymentMethods.forEach(m => m.classList.remove('selected'));
-                    this.classList.add('selected');
-                    
-                    // Show corresponding form
-                    const paymentMethod = this.getAttribute('data-method');
-                    creditCardForm.style.display = 'none';
-                    paypalForm.style.display = 'none';
-                    applePayForm.style.display = 'none';
-                    
-                    if (paymentMethod === 'credit-card') {
-                        creditCardForm.style.display = 'block';
-                    } else if (paymentMethod === 'paypal') {
-                        paypalForm.style.display = 'block';
-                    } else if (paymentMethod === 'apple-pay') {
-                        applePayForm.style.display = 'block';
-                    }
-                });
-            });
-            
-            // Shipping method selection
-            const shippingOptions = document.querySelectorAll('input[name="shipping"]');
-            const shippingCost = document.getElementById('shipping-cost');
-            const orderTotal = document.getElementById('order-total');
-            
-            shippingOptions.forEach(option => {
-                option.addEventListener('change', function() {
-                    let cost = 4.99; // Default shipping cost
-                    
-                    if (this.value === 'express') {
-                        cost = 9.99;
-                    } else if (this.value === 'next-day') {
-                        cost = 14.99;
-                    }
-                    
-                    // Update shipping cost
-                    shippingCost.textContent = '$' + cost.toFixed(2);
-                    
-                    // Update total
-                    const subtotal = 82.97;
-                    const tax = 7.47;
-                    const total = subtotal + cost + tax;
-                    orderTotal.textContent = '$' + total.toFixed(2);
-                });
-            });
-            
-            // Form validation and submission
-            const checkoutForm = document.getElementById('checkout-form');
-            const placeOrderBtn = document.getElementById('place-order');
-            
-            placeOrderBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Basic form validation
-                const requiredFields = checkoutForm.querySelectorAll('[required]');
-                let isValid = true;
-                
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        isValid = false;
-                        field.style.borderColor = '#e63946';
-                    } else {
-                        field.style.borderColor = '#ddd';
-                    }
-                });
-                
-                if (isValid) {
-                    // Simulate order placement
-                    alert('Order placed successfully! Thank you for shopping with Carske.');
-                    window.location.href = 'index.html'; // Redirect to home page
-                } else {
-                    alert('Please fill in all required fields.');
-                }
-            });
-            
-            // Credit card input formatting
-            const cardNumberInput = document.getElementById('card-number');
-            const expiryInput = document.getElementById('expiry');
-            const cvvInput = document.getElementById('cvv');
-            
-            cardNumberInput.addEventListener('input', function(e) {
-                // Remove non-digits
-                let value = this.value.replace(/\D/g, '');
-                
-                // Add spaces every 4 digits
-                if (value.length > 0) {
-                    value = value.match(/.{1,4}/g).join(' ');
-                }
-                
-                // Limit to 19 characters (16 digits + 3 spaces)
-                this.value = value.substring(0, 19);
-            });
-            
-            expiryInput.addEventListener('input', function(e) {
-                // Remove non-digits
-                let value = this.value.replace(/\D/g, '');
-                
-                // Format as MM/YY
-                if (value.length > 2) {
-                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
-                }
-                
-                this.value = value.substring(0, 5);
-            });
-            
-            cvvInput.addEventListener('input', function(e) {
-                // Remove non-digits and limit to 3-4 digits
-                this.value = this.value.replace(/\D/g, '').substring(0, 4);
-            });
-        });
-    </script>
+  function calculateTotal() {
+    const orderTotal = document.getElementById('order-total');
+    if (orderTotal) {
+      const totalText = orderTotal.textContent.replace('$', '').replace('KSh ', '');
+      const totalAmount = parseFloat(totalText);
+      return Math.round(totalAmount * 100); // Convert to cents (minor units)
+    }
+    return 9543; // Default fallback
+  }
+
+  function payWithPaystack() {
+    const amount = calculateTotal();
+    const ref = 'CARSKE_' + Date.now(); // unique reference for tracking
+
+    // Get all form fields
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const city = document.getElementById('city').value;
+
+    // Check that everything is filled
+    if (!firstName || !lastName || !email || !phone || !address || !city) {
+      alert('⚠️ Please fill all shipping details before proceeding.');
+      return;
+    }
+
+    // Initialize Paystack
+    const handler = PaystackPop.setup({
+      key: 'pk_test_a2563b6c10c7bffcb98332d9c27a9194967acfd8', // Replace with your public key
+      email: email,
+      amount: amount,
+      currency: 'KES',
+      ref: ref,
+      label: "CarsKe Order Payment",
+
+      callback: function(response) {
+        // ✅ Payment success
+        alert(`✅ Payment successful! Reference: ${response.reference}`);
+
+        // Gather all order data
+        const orderData = {
+          "🧾 Payment Reference": response.reference,
+          "💰 Amount Paid (KES)": (amount / 100).toFixed(2),
+          "👤 Name": `${firstName} ${lastName}`,
+          "📧 Email": email,
+          "📞 Phone": phone,
+          "🏠 Address": `${address}, ${city}`,
+          "📅 Date": new Date().toLocaleString()
+        };
+
+        console.log("Order data:", orderData);
+
+        // --- ✉️ Send to Gmail via FormSubmit ---
+        const formData = new FormData();
+        for (const key in orderData) {
+          formData.append(key, orderData[key]);
+        }
+
+        fetch("https://formsubmit.co/jaypindoria05@gmail.com", {
+          method: "POST",
+          body: formData
+        })
+        .then(res => {
+          if (res.ok) {
+            alert("📩 Order details (with reference) sent to your email!");
+          } else {
+            alert("⚠️ Payment done, but email sending failed.");
+          }
+        })
+        .catch(() => alert("Error sending order email."));
+
+        // --- Save and redirect ---
+        localStorage.setItem("orderData", JSON.stringify(orderData));
+        window.location.href = "order-success.html";
+      },
+
+      onClose: function() {
+        alert('❌ Payment was not completed. You can try again.');
+      }
+    });
+
+    handler.openIframe();
+  }
+
+  // Trigger pay on click
+  if (payButton) {
+    payButton.addEventListener('click', payWithPaystack);
+  }
+});
+</script>
 </body>
 </html>

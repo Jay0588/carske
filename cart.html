@@ -546,6 +546,18 @@
                 font-weight: normal;
             }
         }
+        /* Mobile header: keep row and push cart icon right */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: initial;
+                align-items: center;
+            }
+            nav { flex: 1; }
+            nav ul { margin-top: 0; justify-content: center; }
+            .cart-icon { margin-left: auto; }
+        }
     </style>
     <script src="js/layout.js" defer></script>
 </head>
@@ -559,7 +571,6 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Shop</a></li>
                     <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -587,7 +598,7 @@
             <h1 class="section-title">Your Shopping Cart</h1>
             
             <div class="cart-actions">
-                <a href="products.html" class="continue-shopping">Continue Shopping</a>
+                <a href="index.html" class="continue-shopping">Continue Shopping</a>
                 <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
             </div>
             
@@ -602,70 +613,13 @@
                             <div>Total</div>
                             <div></div>
                         </div>
-                        
-                        <!-- Cart item 1 -->
-                        <div class="cart-item" data-id="1" data-price="24.99">
-                            <div class="item-info">
-                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Classic White T-shirt" class="item-image">
-                                <div class="item-details">
-                                    <h3>Classic White T-shirt</h3>
-                                    <p>Size: M | Color: White</p>
-                                </div>
-                            </div>
-                            <div class="item-price">$24.99</div>
-                            <div class="item-quantity">
-                                <button class="quantity-btn minus">-</button>
-                                <input type="number" class="quantity-input" value="1" min="1" max="10">
-                                <button class="quantity-btn plus">+</button>
-                            </div>
-                            <div class="item-total">$24.99</div>
-                            <button class="remove-btn">×</button>
-                        </div>
-                        
-                        <!-- Cart item 2 -->
-                        <div class="cart-item" data-id="2" data-price="29.99">
-                            <div class="item-info">
-                                <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Vintage Black T-shirt" class="item-image">
-                                <div class="item-details">
-                                    <h3>Vintage Black T-shirt</h3>
-                                    <p>Size: L | Color: Black</p>
-                                </div>
-                            </div>
-                            <div class="item-price">$29.99</div>
-                            <div class="item-quantity">
-                                <button class="quantity-btn minus">-</button>
-                                <input type="number" class="quantity-input" value="1" min="1" max="10">
-                                <button class="quantity-btn plus">+</button>
-                            </div>
-                            <div class="item-total">$29.99</div>
-                            <button class="remove-btn">×</button>
-                        </div>
-                        
-                        <!-- Cart item 3 -->
-                        <div class="cart-item" data-id="3" data-price="27.99">
-                            <div class="item-info">
-                                <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Striped Navy T-shirt" class="item-image">
-                                <div class="item-details">
-                                    <h3>Striped Navy T-shirt</h3>
-                                    <p>Size: S | Color: Navy</p>
-                                </div>
-                            </div>
-                            <div class="item-price">$27.99</div>
-                            <div class="item-quantity">
-                                <button class="quantity-btn minus">-</button>
-                                <input type="number" class="quantity-input" value="1" min="1" max="10">
-                                <button class="quantity-btn plus">+</button>
-                            </div>
-                            <div class="item-total">$27.99</div>
-                            <button class="remove-btn">×</button>
-                        </div>
                     </div>
                     
                     <div class="cart-summary">
                         <h2 class="summary-title">Order Summary</h2>
                         <div class="summary-item">
                             <span>Subtotal</span>
-                            <span id="subtotal">$82.97</span>
+                            <span id="subtotal">KSh 0.00</span>
                         </div>
                         <!-- Shipping and Tax rows removed per request -->
                         <div class="promo-code">
@@ -677,64 +631,20 @@
                         </div>
                         <div class="summary-total">
                             <span>Total</span>
-                            <span id="total">KSh 95.43</span>
+                            <span id="total">KSh 0.00</span>
                         </div>
                         <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
-                        <a href="products.html" class="continue-shopping">Continue Shopping</a>
+                        <a href="index.html" class="continue-shopping">Continue Shopping</a>
                     </div>
                 </div>
                 
                 <!-- Empty cart -->
                 <div class="cart-empty" id="empty-cart" style="display: none;">
                     <p>Your cart is empty</p>
-                    <a href="products.html" class="btn">Continue Shopping</a>
+                    <a href="index.html" class="btn">Continue Shopping</a>
                 </div>
             </div>
             
-            <!-- Recommended products -->
-            <div class="recommended-products">
-                <h2 class="section-title">You May Also Like</h2>
-                <div class="products-grid">
-                    <!-- BMW F90 -->
-                    <div class="product-card">
-                        <img src="bmw-f90.jpg" alt="BMW F90 T-shirt" class="product-img">
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">BMW F90 T-shirt</h3>
-                            <p class="product-card-price">KSh 1600</p>
-                            <button class="btn add-to-cart" onclick="addToCart('bmw-f90','BMW F90 T-shirt',1600,'bmw-f90.jpg')">Add to Cart</button>
-                        </div>
-                    </div>
-
-                    <!-- Porsche -->
-                    <div class="product-card">
-                        <img src="porsche.jpg" alt="Porsche T-shirt" class="product-img">
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">Porsche T-shirt</h3>
-                            <p class="product-card-price">KSh 1600</p>
-                            <button class="btn add-to-cart" onclick="addToCart('porsche','Porsche T-shirt',1600,'porsche.jpg')">Add to Cart</button>
-                        </div>
-                    </div>
-
-                    <!-- Supra -->
-                    <div class="product-card">
-                        <img src="supra.jpg" alt="Supra T-shirt" class="product-img">
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">Supra T-shirt</h3>
-                            <p class="product-card-price">KSh 1600</p>
-                            <button class="btn add-to-cart" onclick="addToCart('supra','Supra T-shirt',1600,'supra.jpg')">Add to Cart</button>
-                        </div>
-                    </div>
-
-                    <!-- Need Money -->
-                    <div class="product-card">
-                        <img src="needmoney.jpg" alt="Need Money T-shirt" class="product-img">
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">Need Money T-shirt</h3>
-                            <p class="product-card-price">KSh 1600</p>
-                            <button class="btn add-to-cart" onclick="addToCart('needmoney','Need Money T-shirt',1600,'needmoney.jpg')">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -754,7 +664,7 @@
                 <div class="footer-col">
                     <h3>Shop</h3>
                     <ul>
-                        <li><a href="products.html">All Products</a></li>
+                        
                         <li><a href="#">New Arrivals</a></li>
                         <li><a href="#">Best Sellers</a></li>
                     </ul>
@@ -822,12 +732,21 @@
                     itemElement.setAttribute('data-price', item.price);
                     itemElement.setAttribute('data-index', index);
                     
+                    const size = item.size || 'M';
+                    const sizeButtons = ['S','M','L','XL'].map(s => `
+                        <button type="button" class="size-option ${s===size ? 'selected' : ''}" data-size="${s}" style="padding:6px 12px; border:1px solid ${s===size ? '#e63946' : '#ddd'}; border-radius:999px; background:${s===size ? '#e63946' : '#fff'}; color:${s===size ? '#fff' : '#333'}; cursor:pointer;">${s}</button>
+                    `).join('');
                     itemElement.innerHTML = `
                         <div class="item-info">
                             <img src="${item.image}" alt="${item.name || item.title || ''}" class="item-image">
                             <div class="item-details">
                                 <h3>${item.name || item.title}</h3>
-                                <p>Size: M | Color: Various</p>
+                                <p>
+                                    Size:
+                                    <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                        ${sizeButtons}
+                                    </div>
+                                </p>
                             </div>
                         </div>
                         <div class="item-price">KSh ${item.price.toFixed(2)}</div>
@@ -863,6 +782,7 @@
                     const plusBtn = item.querySelector('.plus');
                     const quantityInput = item.querySelector('.quantity-input');
                     const removeBtn = item.querySelector('.remove-btn');
+                    const sizeGroup = item.querySelector('.size-group');
                     const itemIndex = parseInt(item.getAttribute('data-index'));
                     
                     // Minus button
@@ -907,6 +827,27 @@
                         saveCart();
                         loadCartItems(); // Reload all items to update indices
                     });
+
+                    // Size button interactions
+                    if (sizeGroup) {
+                        const buttons = sizeGroup.querySelectorAll('.size-option');
+                        buttons.forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                buttons.forEach(b => {
+                                    b.classList.remove('selected');
+                                    b.style.background = '#fff';
+                                    b.style.color = '#333';
+                                    b.style.borderColor = '#ddd';
+                                });
+                                btn.classList.add('selected');
+                                btn.style.background = '#e63946';
+                                btn.style.color = '#fff';
+                                btn.style.borderColor = '#e63946';
+                                cart[itemIndex].size = btn.getAttribute('data-size') || 'M';
+                                saveCart();
+                            });
+                        });
+                    }
                 });
             }
             
@@ -974,3 +915,10 @@
     </script>
 </body>
 </html>
+                    // Size select
+                    if (sizeSelect) {
+                        sizeSelect.addEventListener('change', function() {
+                            cart[itemIndex].size = this.value;
+                            saveCart();
+                        });
+                    }

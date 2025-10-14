@@ -12,9 +12,10 @@ function updateCartCount() {
 }
 
 // Add item to cart
-function addToCart(productId, productName, price, image) {
+function addToCart(productId, productName, price, image, size) {
     // Check if product already exists in cart
-    const existingItemIndex = cart.findIndex(item => item.id === productId);
+    const selectedSize = (size && typeof size === 'string') ? size : 'M';
+    const existingItemIndex = cart.findIndex(item => item.id === productId && (item.size || 'M') === selectedSize);
     
     if (existingItemIndex > -1) {
         // Increase quantity if product already in cart
@@ -26,7 +27,8 @@ function addToCart(productId, productName, price, image) {
             name: productName,
             price: price,
             image: image,
-            quantity: 1
+            quantity: 1,
+            size: selectedSize
         });
     }
     
@@ -120,7 +122,7 @@ function displayCart() {
     if (!cartItemsContainer) return;
     
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<div class="empty-cart"><p>Your cart is empty</p><a href="products.html" class="btn">Continue Shopping</a></div>';
+        cartItemsContainer.innerHTML = '<div class="empty-cart"><p>Your cart is empty</p><a href="index.html" class="btn">Continue Shopping</a></div>';
         if (cartSummary) {
             cartSummary.style.display = 'none';
         }
@@ -208,7 +210,7 @@ function displayCheckoutItems() {
 
 // Continue shopping button
 function continueShopping() {
-    window.location.href = 'products.html';
+    window.location.href = 'index.html';
 }
 
 // Initialize cart on page load
@@ -245,8 +247,46 @@ document.addEventListener('DOMContentLoaded', function() {
             const productName = this.getAttribute('data-name');
             const productPrice = parseFloat(this.getAttribute('data-price'));
             const productImage = this.getAttribute('data-image');
-            
-            addToCart(productId, productName, productPrice, productImage);
+            const container = this.closest('.product-info') || this.closest('.product-card') || document;
+            let selectedSize = 'M';
+            // Prefer pill buttons selection
+            const selectedBtn = container.querySelector('.size-group .size-option.selected');
+            if (selectedBtn) {
+                selectedSize = selectedBtn.getAttribute('data-size') || 'M';
+            } else {
+                // Fallback to select if present
+                const sizeSelect = container.querySelector('.size-select');
+                if (sizeSelect) selectedSize = sizeSelect.value;
+            }
+
+            addToCart(productId, productName, productPrice, productImage, selectedSize);
         });
+    });
+
+    // Wire up pill button interactions (toggle selection and styles)
+    const sizeGroups = document.querySelectorAll('.size-group');
+    sizeGroups.forEach(group => {
+        const buttons = group.querySelectorAll('.size-option');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => {
+                    b.classList.remove('selected');
+                    b.style.background = '#fff';
+                    b.style.color = '#333';
+                    b.style.borderColor = '#ddd';
+                });
+                btn.classList.add('selected');
+                btn.style.background = '#e63946';
+                btn.style.color = '#fff';
+                btn.style.borderColor = '#e63946';
+            });
+        });
+        // Ensure initial selected button has active style
+        const preselected = group.querySelector('.size-option.selected');
+        if (preselected) {
+            preselected.style.background = '#e63946';
+            preselected.style.color = '#fff';
+            preselected.style.borderColor = '#e63946';
+        }
     });
 });

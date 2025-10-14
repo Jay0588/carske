@@ -423,6 +423,32 @@
                 border-radius: 4px;
             }
         }
+        /* Mobile header: keep row and push cart icon right */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: initial;
+                align-items: center;
+            }
+            nav { flex: 1; }
+            nav ul { margin-top: 0; justify-content: center; }
+            .cart-icon { margin-left: auto; }
+        }
+        /* Smaller Add to Cart buttons within product cards */
+        .product-card .btn {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+        /* Product actions layout and size pills responsiveness */
+        .product-actions { display: flex; flex-direction: column; gap: 12px; }
+        .size-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .size-option { border-radius: 999px; padding: 6px 12px; }
+        @media (max-width: 768px) {
+            .product-actions { gap: 10px; }
+            .size-group { flex-wrap: wrap; }
+        }
     </style>
     <script src="js/layout.js" defer></script>
 </head>
@@ -434,7 +460,6 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Shop</a></li>
                     <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -453,7 +478,7 @@
         <div class="container hero-content">
             <h1>Premium Quality T-shirts</h1>
             <p>Discover our collection of comfortable, stylish, and sustainable t-shirts designed for everyday wear.</p>
-            <a href="products.html" class="btn">Shop Now</a>
+            <a href="index.html" class="btn">Shop Now</a>
         </div>
     </section>
 
@@ -471,7 +496,15 @@
                     <div class="product-info">
                         <h3 class="product-title">BMW F90 T-shirt</h3>
                         <p class="product-price">KSh 1600</p>
-                        <button class="btn">Add to Cart</button>
+                        <div class="product-actions">
+                            <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                <button type="button" class="size-option" data-size="S" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">S</button>
+                                <button type="button" class="size-option selected" data-size="M" style="padding:6px 12px; border:1px solid #e63946; border-radius:999px; background:#e63946; color:#fff; cursor:pointer;">M</button>
+                                <button type="button" class="size-option" data-size="L" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">L</button>
+                                <button type="button" class="size-option" data-size="XL" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">XL</button>
+                            </div>
+                            <button class="btn">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 <!-- New 2 -->
@@ -480,7 +513,15 @@
                     <div class="product-info">
                         <h3 class="product-title">Porsche T-shirt</h3>
                         <p class="product-price">KSh 1600</p>
-                        <button class="btn">Add to Cart</button>
+                        <div class="product-actions">
+                            <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                <button type="button" class="size-option" data-size="S" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">S</button>
+                                <button type="button" class="size-option selected" data-size="M" style="padding:6px 12px; border:1px solid #e63946; border-radius:999px; background:#e63946; color:#fff; cursor:pointer;">M</button>
+                                <button type="button" class="size-option" data-size="L" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">L</button>
+                                <button type="button" class="size-option" data-size="XL" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">XL</button>
+                            </div>
+                            <button class="btn">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 <!-- New 3 -->
@@ -489,7 +530,15 @@
                     <div class="product-info">
                         <h3 class="product-title">Supra T-shirt</h3>
                         <p class="product-price">KSh 1600</p>
-                        <button class="btn">Add to Cart</button>
+                        <div class="product-actions">
+                            <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                <button type="button" class="size-option" data-size="S" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">S</button>
+                                <button type="button" class="size-option selected" data-size="M" style="padding:6px 12px; border:1px solid #e63946; border-radius:999px; background:#e63946; color:#fff; cursor:pointer;">M</button>
+                                <button type="button" class="size-option" data-size="L" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">L</button>
+                                <button type="button" class="size-option" data-size="XL" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">XL</button>
+                            </div>
+                            <button class="btn">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 <!-- New 4 -->
@@ -498,7 +547,15 @@
                     <div class="product-info">
                         <h3 class="product-title">Need Money T-shirt</h3>
                         <p class="product-price">KSh 1600</p>
-                        <button class="btn">Add to Cart</button>
+                        <div class="product-actions">
+                            <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                <button type="button" class="size-option" data-size="S" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">S</button>
+                                <button type="button" class="size-option selected" data-size="M" style="padding:6px 12px; border:1px solid #e63946; border-radius:999px; background:#e63946; color:#fff; cursor:pointer;">M</button>
+                                <button type="button" class="size-option" data-size="L" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">L</button>
+                                <button type="button" class="size-option" data-size="XL" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">XL</button>
+                            </div>
+                            <button class="btn">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -519,14 +576,7 @@
                     </div>
                 </div>
                 
-                <div class="footer-col">
-                    <h3>Shop</h3>
-                    <ul>
-                        <li><a href="products.html">All Products</a></li>
-                        <li><a href="#">New Arrivals</a></li>
-                        <li><a href="#">Best Sellers</a></li>
-                    </ul>
-                </div>
+                
                 
                 <div class="footer-col">
                     <h3>Customer Care</h3>
@@ -573,10 +623,11 @@
                     name: item.title || item.name,
                     price: item.price,
                     image: item.image,
-                    quantity: 1
+                    quantity: 1,
+                    size: item.size || 'M'
                 };
 
-                const existingItemIndex = cart.findIndex(ci => ci.id === cartItem.id);
+                const existingItemIndex = cart.findIndex(ci => ci.id === cartItem.id && (ci.size || 'M') === (cartItem.size || 'M'));
                 if (existingItemIndex !== -1) {
                     cart[existingItemIndex].quantity += 1;
                 } else {
@@ -599,12 +650,15 @@
                         const priceText = productCard.querySelector('.product-price').textContent;
                         const price = parseFloat(priceText.replace('$', '').replace('KSh', '').trim());
                         const image = productCard.parentElement.querySelector('.product-img').src;
+                        let size = 'M';
+                        const selectedBtn = productCard.querySelector('.size-group .size-option.selected');
+                        if (selectedBtn) size = selectedBtn.getAttribute('data-size') || 'M';
                         
                         // Create a unique ID for this product
                         const id = `featured-${index}`;
                         
                         // Add to cart
-                        addToCart({ id, title, price, image });
+                        addToCart({ id, title, price, image, size });
                         // Trigger cart icon animation
                         if (typeof triggerCartAnimation === 'function') {
                             triggerCartAnimation();
@@ -619,6 +673,31 @@
                             button.style.backgroundColor = '#e63946';
                         }, 1500);
                     });
+                }
+            });
+            // Wire up size pill interactions for featured products
+            const sizeGroups = document.querySelectorAll('.size-group');
+            sizeGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.size-option');
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        buttons.forEach(b => {
+                            b.classList.remove('selected');
+                            b.style.background = '#fff';
+                            b.style.color = '#333';
+                            b.style.borderColor = '#ddd';
+                        });
+                        btn.classList.add('selected');
+                        btn.style.background = '#e63946';
+                        btn.style.color = '#fff';
+                        btn.style.borderColor = '#e63946';
+                    });
+                });
+                const preselected = group.querySelector('.size-option.selected');
+                if (preselected) {
+                    preselected.style.background = '#e63946';
+                    preselected.style.color = '#fff';
+                    preselected.style.borderColor = '#e63946';
                 }
             });
         });

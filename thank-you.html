@@ -23,8 +23,26 @@
         .btn.secondary { background: #eee; color: #333; }
         table { width: 100%; border-collapse: collapse; margin-top: 16px; }
         th, td { padding: 10px 12px; border-bottom: 1px solid #eee; text-align: left; }
-        footer { margin-top: 40px; padding: 20px 0; background: #111; color: #fff; }
-        .footer-bottom { text-align: center; border-top: 1px solid #444; padding-top: 12px; }
+        /* Footer (match index page) */
+        footer { background-color: #333; color: white; padding: 60px 0 20px; margin-top: 40px; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 40px; }
+        .footer-col h3 { font-size: 1.2rem; margin-bottom: 20px; position: relative; }
+        .footer-col h3::after { content: ''; position: absolute; left: 0; bottom: -10px; width: 50px; height: 2px; background-color: #e63946; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { color: #ccc; text-decoration: none; transition: color 0.3s ease; }
+        .footer-col ul li a:hover { color: white; }
+        .social-links { display: flex; gap: 15px; }
+        .social-links a { color: white; background-color: #444; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
+        .social-links a:hover { background-color: #e63946; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #444; }
+        /* Mobile header: keep row and push cart icon right */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: row; justify-content: space-between; align-items: center; }
+            nav { flex: 1; }
+            nav ul { margin-top: 0; justify-content: center; }
+            .cart-icon { margin-left: auto; }
+        }
     </style>
     <script src="js/layout.js" defer></script>
 </head>
@@ -35,7 +53,7 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Shop</a></li>
+            
                     <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -75,7 +93,7 @@
                 <div class="actions">
                     <a id="view-order-btn" class="btn" href="#">View Order</a>
                     <a class="btn secondary" href="orders.html">All Orders</a>
-                    <a class="btn secondary" href="products.html">Continue Shopping</a>
+    <a class="btn secondary" href="index.html">Continue Shopping</a>
                 </div>
             </div>
         </div>

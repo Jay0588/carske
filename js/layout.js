@@ -30,7 +30,6 @@
           <nav>
             <ul>
               <li><a href="${PREFIX}index.html">Home</a></li>
-              <li><a href="${PREFIX}products.html">Shop</a></li>
               <li><a href="${PREFIX}orders.html">Orders</a></li>
               <li><a href="${PREFIX}contact.html">Contact</a></li>
             </ul>
@@ -55,13 +54,7 @@
                 <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" style="width: 20px; height: 20px; vertical-align: middle;"></a>
               </div>
             </div>
-            <div class="footer-col">
-              <h3>Shop</h3>
-              <ul>
-                <li><a href="${PREFIX}products.html">All Products</a></li>
-                <li><a href="#">New Arrivals</a></li>
-              </ul>
-            </div>
+            
             <div class="footer-col">
               <h3>Customer Care</h3>
               <ul>

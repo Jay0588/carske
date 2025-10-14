@@ -201,6 +201,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            grid-column: 1 / -1; /* Span full width when form is removed */
         }
         
         .info-card {
@@ -486,6 +487,18 @@
                 height: 400px;
             }
         }
+        /* Mobile header: keep row and push cart icon right */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: initial;
+                align-items: center;
+            }
+            nav { flex: 1; }
+            nav ul { margin-top: 0; justify-content: center; }
+            .cart-icon { margin-left: auto; }
+        }
     </style>
     <script src="js/layout.js" defer></script>
 </head>
@@ -497,7 +510,6 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Shop</a></li>
                     <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -528,99 +540,49 @@
             <h1 class="section-title">Contact Us</h1>
             
             <div class="contact-container">
-                <!-- Contact form -->
-                <div class="contact-form">
-                    <form id="contact-form" action="https://formsubmit.co/rianshah3911@gmail.com" method="POST">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" class="form-control" required>
+                <div class="contact-info">
+                    <!-- Contact details -->
+                    <div class="info-card">
+                        <h3>Contact Details</h3>
+                        <div class="info-item">
+                            <span class="info-icon">📞</span>
+                            <div class="info-text">
+                                <strong>Phone:</strong> <a href="tel:+254712345678">+254 712 345 678</a>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" class="form-control" required>
+                        <div class="info-item">
+                            <span class="info-icon">✉️</span>
+                            <div class="info-text">
+                                <strong>Email:</strong> <a href="mailto:rianshah3911@gmail.com">rianshah3911@gmail.com</a>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
+                    </div>
+
+                    <!-- Instagram callout -->
+                    <div class="info-card">
+                        <h3>Check Out Our Instagram</h3>
+                        <p class="info-text">See new drops, behind-the-scenes, and customer features.</p>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" style="width: 20px; height: 20px;">
+                            </a>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
+                    </div>
                 </div>
-                
-                <!-- Contact info removed per request -->
             </div>
         </div>
     </section>
 
     <!-- Map section removed per request -->
 
-    <!-- FAQ section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            
-            <div class="faq-container">
-                <!-- FAQ item 1 -->
-                <div class="faq-item">
-                    <div class="faq-question">How long does shipping take?</div>
-                    <div class="faq-answer">
-                        <p>Standard shipping within the United States typically takes 3-7 business days. Express shipping takes 2-3 business days, and Next Day Delivery is available for orders placed before 2pm (recipient's local time).</p>
-                        <p>International shipping times vary by location, generally taking 7-14 business days.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ item 2 -->
-                <div class="faq-item">
-                    <div class="faq-question">What is your return policy?</div>
-                    <div class="faq-answer">
-                        <p>We offer a 30-day return policy for all unworn, unwashed items in their original condition with tags attached. Returns are free for customers in the United States. International customers are responsible for return shipping costs.</p>
-                        <p>To initiate a return, please visit our Returns Portal or contact our customer support team.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ item 3 -->
-                <div class="faq-item">
-                    <div class="faq-question">How do I find my size?</div>
-                    <div class="faq-answer">
-                        <p>We provide detailed size guides on each product page. Our t-shirts generally run true to size, but we recommend checking the specific measurements provided for each style.</p>
-                        <p>If you're between sizes, we recommend sizing up for a more relaxed fit or sizing down for a more fitted look.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ item 4 -->
-                <div class="faq-item">
-                    <div class="faq-question">Do you ship internationally?</div>
-                    <div class="faq-answer">
-                        <p>Yes, we ship to over 30 countries worldwide. International shipping rates and delivery times vary by location. Please note that customers are responsible for any customs fees or import duties that may apply.</p>
-                    </div>
-                </div>
-                
-                <!-- FAQ item 5 -->
-                <div class="faq-item">
-                    <div class="faq-question">How do I care for my Carske t-shirt?</div>
-                    <div class="faq-answer">
-                        <p>For best results, machine wash cold with like colors, using a gentle cycle. Tumble dry low or lay flat to dry. Avoid using bleach or fabric softeners, as these can affect the quality of the fabric and print.</p>
-                        <p>For detailed care instructions, please refer to the care label on your specific item.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- FAQ section removed -->
 
     <!-- CTA section -->
     <section class="cta-section">
         <div class="container">
             <h2 class="cta-title">Explore Our Car T-shirts</h2>
             <p class="cta-text">Discover our exclusive collection of car-themed t-shirts featuring premium designs from top automotive brands.</p>
-            <a href="products.html" class="cta-btn">Shop Now</a>
+            <a href="index.html" class="cta-btn">Shop Now</a>
         </div>
     </section>
 
@@ -636,14 +598,7 @@
                     </div>
                 </div>
                 
-                <div class="footer-col">
-                    <h3>Shop</h3>
-                    <ul>
-                        <li><a href="products.html">All Products</a></li>
-                        <li><a href="#">New Arrivals</a></li>
-                        <li><a href="#">Best Sellers</a></li>
-                    </ul>
-                </div>
+                
                 
                 <div class="footer-col">
                     <h3>Customer Care</h3>

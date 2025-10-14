@@ -643,6 +643,18 @@
                 margin: 0 15px 0 0;
             }
         }
+        /* Mobile header: keep row and push cart icon right */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: initial;
+                align-items: center;
+            }
+            nav { flex: 1; }
+            nav ul { margin-top: 0; justify-content: center; }
+            .cart-icon { margin-left: auto; }
+        }
     </style>
     <script src="js/layout.js" defer></script>
 </head>
@@ -656,7 +668,6 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Shop</a></li>
                     <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -753,6 +764,7 @@
                         <!-- Hidden inputs to include order details in form submission -->
                         <input type="hidden" id="order-items-input" name="order_items">
                         <input type="hidden" id="order-items-readable" name="order_items_readable">
+                        <input type="hidden" id="order-sizes-input" name="order_sizes">
                         <input type="hidden" id="order-subtotal-input" name="order_subtotal">
                         <input type="hidden" id="order-shipping-input" name="order_shipping">
                         <input type="hidden" id="order-total-input" name="order_total">
@@ -815,14 +827,7 @@
                     </div>
                 </div>
                 
-                <div class="footer-col">
-                    <h3>Shop</h3>
-                    <ul>
-                        <li><a href="products.html">All Products</a></li>
-                        <li><a href="#">New Arrivals</a></li>
-                        <li><a href="#">Best Sellers</a></li>
-                    </ul>
-                </div>
+                
                 
                 <div class="footer-col">
                     <h3>Customer Care</h3>
@@ -898,7 +903,7 @@
                             <img src="${item.image}" alt="${item.name}" class="item-img">
                             <div class="item-info">
                                 <p class="item-name">${item.name}</p>
-                                <p class="item-details">Qty: ${item.quantity}</p>
+                                <p class="item-details">Size: ${item.size || 'M'} | Qty: ${item.quantity}</p>
                             </div>
                             <div class="item-price">KSh ${itemTotal.toFixed(0)}</div>
                         </div>
@@ -946,18 +951,23 @@
             function populateFormOrderDetails(cart) {
                 const itemsInput = document.getElementById('order-items-input');
                 const itemsReadableInput = document.getElementById('order-items-readable');
+                const sizesInput = document.getElementById('order-sizes-input');
                 if (!itemsInput) return;
                 // Store a concise description for each item
                 const details = cart.map(item => ({
                     name: item.name,
+                    size: item.size || 'M',
                     quantity: item.quantity,
                     price: item.price,
                     total: item.price * item.quantity
                 }));
                 itemsInput.value = JSON.stringify(details);
                 if (itemsReadableInput) {
-                    const readable = details.map(d => `${d.name} x${d.quantity} @ KSh ${d.price} = KSh ${d.total}`).join('; ');
+                    const readable = details.map(d => `${d.name} (Size: ${d.size}) x${d.quantity} @ KSh ${d.price} = KSh ${d.total}`).join('; ');
                     itemsReadableInput.value = readable;
+                }
+                if (sizesInput) {
+                    sizesInput.value = details.map(d => d.size).join(', ');
                 }
             }
 
@@ -984,7 +994,7 @@
                 const order = {
                     id: 'ORD-' + Date.now(),
                     createdAt: Date.now(),
-                    items: cart.map(i => ({ name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
+                    items: cart.map(i => ({ name: i.name, size: i.size || 'M', price: i.price, quantity: i.quantity, image: i.image })),
                     subtotal,
                     shipping,
                     total,

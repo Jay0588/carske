@@ -412,6 +412,14 @@
             padding-top: 20px;
             border-top: 1px solid #444;
         }
+        /* Product actions layout and size pills responsiveness */
+        .product-actions { display: flex; flex-direction: column; gap: 12px; }
+        .size-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .size-option { border-radius: 999px; padding: 6px 12px; }
+        @media (max-width: 768px) {
+            .product-actions { gap: 10px; }
+            .size-group { flex-wrap: wrap; }
+        }
         
         /* Responsive styles */
         @media (max-width: 992px) {
@@ -449,12 +457,28 @@
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
         }
+        /* Mobile header: keep row and push cart icon right */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: initial;
+                align-items: center;
+            }
+            nav { flex: 1; }
+            nav ul { margin-top: 0; justify-content: center; }
+            .cart-icon { margin-left: auto; }
+        }
+        /* Smaller Add to Cart buttons within product cards */
+        .product-card .btn {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
     </style>
     <script src="js/layout.js" defer></script>
 </head>
 <body>
-    <script src="cart.js" defer></script>
-    <!-- Include cart.js -->
     <script src="cart.js" defer></script>
     <!-- Header section -->
     <header>
@@ -463,7 +487,6 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="products.html">Shop</a></li>
                     <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -518,6 +541,12 @@
                             <h3 class="product-title">BMW F90 T-shirt <span style="color:#e63946; font-size:0.9rem;">New</span></h3>
                             <p class="product-price">KSh 1600</p>
                             <div class="product-actions">
+                                <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                    <button type="button" class="size-option" data-size="S" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">S</button>
+                                    <button type="button" class="size-option selected" data-size="M" style="padding:6px 12px; border:1px solid #e63946; border-radius:999px; background:#e63946; color:#fff; cursor:pointer;">M</button>
+                                    <button type="button" class="size-option" data-size="L" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">L</button>
+                                    <button type="button" class="size-option" data-size="XL" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">XL</button>
+                                </div>
                                 <button class="btn add-to-cart" data-id="bmw-f90" data-name="BMW F90 T-shirt" data-price="1600" data-image="bmw-f90.jpg">Add to Cart</button>
                             </div>
                         </div>
@@ -530,6 +559,12 @@
                             <h3 class="product-title">Porsche T-shirt <span style="color:#e63946; font-size:0.9rem;">New</span></h3>
                             <p class="product-price">KSh 1600</p>
                             <div class="product-actions">
+                                <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                    <button type="button" class="size-option" data-size="S" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">S</button>
+                                    <button type="button" class="size-option selected" data-size="M" style="padding:6px 12px; border:1px solid #e63946; border-radius:999px; background:#e63946; color:#fff; cursor:pointer;">M</button>
+                                    <button type="button" class="size-option" data-size="L" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">L</button>
+                                    <button type="button" class="size-option" data-size="XL" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">XL</button>
+                                </div>
                                 <button class="btn add-to-cart" data-id="porsche" data-name="Porsche T-shirt" data-price="1600" data-image="porsche.jpg">Add to Cart</button>
                             </div>
                         </div>
@@ -542,6 +577,12 @@
                             <h3 class="product-title">Supra T-shirt <span style="color:#e63946; font-size:0.9rem;">New</span></h3>
                             <p class="product-price">KSh 1600</p>
                             <div class="product-actions">
+                                <select class="size-select" aria-label="Select size">
+                                    <option value="S">S</option>
+                                    <option value="M" selected>M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                </select>
                                 <button class="btn add-to-cart" data-id="supra" data-name="Supra T-shirt" data-price="1600" data-image="supra.jpg">Add to Cart</button>
                             </div>
                         </div>
@@ -554,6 +595,12 @@
                             <h3 class="product-title">Need Money T-shirt <span style="color:#e63946; font-size:0.9rem;">New</span></h3>
                             <p class="product-price">KSh 1600</p>
                             <div class="product-actions">
+                                <div class="size-group" role="group" aria-label="Select size" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                    <button type="button" class="size-option" data-size="S" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">S</button>
+                                    <button type="button" class="size-option selected" data-size="M" style="padding:6px 12px; border:1px solid #e63946; border-radius:999px; background:#e63946; color:#fff; cursor:pointer;">M</button>
+                                    <button type="button" class="size-option" data-size="L" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">L</button>
+                                    <button type="button" class="size-option" data-size="XL" style="padding:6px 12px; border:1px solid #ddd; border-radius:999px; background:#fff; color:#333; cursor:pointer;">XL</button>
+                                </div>
                                 <button class="btn add-to-cart" data-id="needmoney" data-name="Need Money T-shirt" data-price="1600" data-image="needmoney.jpg">Add to Cart</button>
                             </div>
                         </div>
@@ -606,7 +653,7 @@
     </footer>
 
     <script>
-        // Optional: keep simple sort change placeholder
+        // Optional: keep simple sort change placeholder and wire up size pill interactions
         document.addEventListener('DOMContentLoaded', function() {
             const sortSelect = document.getElementById('sort');
             if (sortSelect) {
@@ -614,6 +661,33 @@
                     // Placeholder for sort; filters removed
                 });
             }
+
+            // Size pill interactions for product cards
+            const sizeGroups = document.querySelectorAll('.size-group');
+            sizeGroups.forEach(group => {
+                const buttons = group.querySelectorAll('.size-option');
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        buttons.forEach(b => {
+                            b.classList.remove('selected');
+                            b.style.background = '#fff';
+                            b.style.color = '#333';
+                            b.style.borderColor = '#ddd';
+                        });
+                        btn.classList.add('selected');
+                        btn.style.background = '#e63946';
+                        btn.style.color = '#fff';
+                        btn.style.borderColor = '#e63946';
+                    });
+                });
+                // Ensure initial selected button has active style
+                const preselected = group.querySelector('.size-option.selected');
+                if (preselected) {
+                    preselected.style.background = '#e63946';
+                    preselected.style.color = '#fff';
+                    preselected.style.borderColor = '#e63946';
+                }
+            });
         });
     </script>
 </body>

@@ -34,10 +34,6 @@
               <li><a href="${PREFIX}contact.html">Contact</a></li>
             </ul>
           </nav>
-          <a href="${PREFIX}cart.html" class="cart-icon" aria-label="View Cart">
-            <span>🛒</span>
-            <span class="cart-count">0</span>
-          </a>
         </div>
       `;
     }
@@ -73,5 +69,40 @@
     updateCartCount();
   }
 
-  document.addEventListener('DOMContentLoaded', injectLayout);
+  function injectFloatingCartButton() {
+    try {
+      const path = String(window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
+      const isCartPage = path.endsWith('/cart.html') || path.includes('/cart.html');
+      if (isCartPage) return;
+
+      // Inject styles once
+      if (!document.getElementById('floating-cart-style')) {
+        const style = document.createElement('style');
+        style.id = 'floating-cart-style';
+        style.textContent = `
+          .floating-cart-btn { position: fixed; right: 16px; bottom: 16px; background: #e63946; color: #fff; border-radius: 9999px; padding: 12px 16px; font-size: 0.95rem; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; z-index: 9999; }
+          .floating-cart-btn:hover { background: #c1121f; transform: translateY(-1px); }
+          @media (max-width: 768px) {
+            .floating-cart-btn { padding: 10px 14px; font-size: 0.9rem; bottom: 12px; right: 12px; }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+
+      // Avoid duplicate button
+      if (document.getElementById('floating-cart-btn')) return;
+      const a = document.createElement('a');
+      a.id = 'floating-cart-btn';
+      a.href = PREFIX + 'cart.html';
+      a.className = 'floating-cart-btn';
+      a.setAttribute('aria-label', 'View Cart');
+      a.textContent = 'View Cart';
+      document.body.appendChild(a);
+    } catch (e) { /* noop */ }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    injectLayout();
+    injectFloatingCartButton();
+  });
 })();

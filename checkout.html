@@ -22,9 +22,9 @@
         }
         
         .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: none;
+            margin: 0;
             padding: 0 15px;
         }
         
@@ -782,7 +782,7 @@
                         <input type="hidden" name="_subject" value="New CarsKe Order">
                         <input type="hidden" name="_template" value="table">
                         <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="thank-you.html">
+                        <input type="hidden" name="_next" value="https://jay0588.github.io/carske/orders.html">
                         
     
                     </form>
@@ -861,6 +861,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const payButton = document.getElementById('payButton');
+            // Ensure FormSubmit redirects to main site Orders page by default (absolute URL)
+            const SITE_BASE = 'https://jay0588.github.io/carske';
+            const formEl = document.getElementById('checkout-form');
+            if (formEl) {
+                const nextEl = formEl.querySelector('input[name="_next"]');
+                if (nextEl) {
+                    nextEl.value = `${SITE_BASE}/orders.html`;
+                }
+            }
             
             function getCart() {
                 try {
@@ -1077,7 +1086,6 @@
                     ref: ref,
                     label: "CarsKe T-shirt Purchase",
                     callback: function(response) {
-                        alert(`Payment successful! Reference: ${response.reference}`);
                         // Persist successful paid order, capture order ID
                         const orderId = saveOrderToLocal(response.reference);
                         const form = document.getElementById('checkout-form');
@@ -1106,16 +1114,11 @@
                                 subjectInput.value = `New CarsKe Order - Ref ${response.reference}`;
                             }
 
-                            // Redirect to thank-you page after submission via FormSubmit
-                            const thankUrl = `thank-you.html?orderId=${encodeURIComponent(orderId)}&ref=${encodeURIComponent(response.reference)}`;
-                            const nextInput = form.querySelector('input[name="_next"]');
-                            if (nextInput) {
-                                nextInput.value = thankUrl;
-                            }
-
-                            form.submit();
+                            // Submit via fetch but do not navigate away
+                            submitFormViaFetch(form);
                         }
-                        // No manual redirect needed; FormSubmit uses _next to go to thank-you
+                        // Show a simple confirmation and stay on the page
+                        alert('Order placed successfully.');
                     },
                     onClose: function() {
                         alert('Payment was not completed. You can try again.');
@@ -1123,6 +1126,34 @@
                 });
                 
                 handler.openIframe();
+            }
+
+            // Submit the form to FormSubmit via fetch, then redirect manually
+            function submitFormViaFetch(form, redirectUrl) {
+                try {
+                    const formData = new FormData(form);
+                    // Only set _next if a redirect URL is provided
+                    if (redirectUrl) {
+                        formData.set('_next', redirectUrl);
+                    }
+                    const action = form.getAttribute('action');
+                    fetch(action, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'cors'
+                    }).then(function() {
+                        // If a redirectUrl is provided, navigate; otherwise, stay on page
+                        if (redirectUrl) {
+                            window.location.href = redirectUrl;
+                        }
+                    }).catch(function() {
+                        // Fallback: submit normally; this may redirect depending on _next
+                        form.submit();
+                    });
+                } catch (e) {
+                    // Ultimate fallback
+                    form.submit();
+                }
             }
             
             // Render items and totals on load

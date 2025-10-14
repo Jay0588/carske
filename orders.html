@@ -141,6 +141,7 @@
                 const rows = items.map(it => `
                     <tr>
                         <td>${it.name || it.title || 'Item'}</td>
+                        <td>${it.size || 'M'}</td>
                         <td>${it.quantity || 1}</td>
                         <td>${fmtCurrency(it.price || 0)}</td>
                         <td>${fmtCurrency((it.price || 0) * (it.quantity || 1))}</td>
@@ -161,6 +162,7 @@
                             <thead>
                                 <tr>
                                     <th>Item</th>
+                                    <th>Size</th>
                                     <th>Qty</th>
                                     <th>Price</th>
                                     <th>Subtotal</th>

@@ -82,6 +82,7 @@
                     <thead>
                         <tr>
                             <th>Item</th>
+                            <th>Size</th>
                             <th>Qty</th>
                             <th>Price</th>
                             <th>Subtotal</th>
@@ -152,7 +153,7 @@
             meta.innerHTML = `<strong>${order.id}</strong> — ${dateText}<br>City: ${order.city || '-'} • Email: ${order.email || '-'} • Ref: ${order.paymentRef || order.reference || '-'}`;
 
             if (tbody && Array.isArray(order.items)) {
-                const rows = order.items.map(it => `<tr><td>${it.name || it.title || 'Item'}</td><td>${it.quantity || 1}</td><td>${fmtCurrency(it.price || 0)}</td><td>${fmtCurrency((it.price || 0) * (it.quantity || 1))}</td></tr>`).join('');
+                const rows = order.items.map(it => `<tr><td>${it.name || it.title || 'Item'}</td><td>${it.size || 'M'}</td><td>${it.quantity || 1}</td><td>${fmtCurrency(it.price || 0)}</td><td>${fmtCurrency((it.price || 0) * (it.quantity || 1))}</td></tr>`).join('');
                 tbody.innerHTML = rows;
                 table.style.display = '';
             }

@@ -187,12 +187,13 @@ function displayCheckoutItems() {
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         subtotal += itemTotal;
-        
+
+        const size = (item && typeof item.size === 'string' && item.size.trim()) ? item.size.trim() : 'M';
         checkoutHTML += `
             <div class="checkout-item">
                 <div class="checkout-item-info">
                     <span class="checkout-item-quantity">${item.quantity}x</span>
-                    <span class="checkout-item-name">${item.name}</span>
+                    <span class="checkout-item-name">${item.name} <span class="checkout-item-size">[${size}]</span></span>
                 </div>
                 <span class="checkout-item-price">KSh ${itemTotal.toFixed(0)}</span>
             </div>

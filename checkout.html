@@ -312,6 +312,16 @@
             font-weight: 600;
             margin-bottom: 5px;
         }
+        .size-badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 8px;
+            font-size: 0.85rem;
+            color: #333;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+        }
         
         .item-details {
             font-size: 0.9rem;
@@ -902,8 +912,8 @@
                         <div class="order-item">
                             <img src="${item.image}" alt="${item.name}" class="item-img">
                             <div class="item-info">
-                                <p class="item-name">${item.name}</p>
-                                <p class="item-details">Size: ${item.size || 'M'} | Qty: ${item.quantity}</p>
+                                <p class="item-name">${item.name} <span class="size-badge">${item.size || 'M'}</span></p>
+                                <p class="item-details">Qty: ${item.quantity}</p>
                             </div>
                             <div class="item-price">KSh ${itemTotal.toFixed(0)}</div>
                         </div>
@@ -1131,12 +1141,13 @@
             const checkoutForm = document.getElementById('checkout-form');
             if (checkoutForm) {
                 checkoutForm.addEventListener('submit', function(e) {
+                    // Always block manual form submission; require payment first
+                    e.preventDefault();
                     if (!validateCitySelection()) {
-                        e.preventDefault();
                         return;
                     }
-                    // Persist draft order (without payment reference)
-                    saveOrderToLocal(null);
+                    // Trigger Paystack flow; on success we submit programmatically
+                    payWithPaystack();
                 });
             }
             

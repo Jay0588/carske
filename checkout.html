@@ -47,7 +47,7 @@
         .logo {
             font-size: 2rem;
             font-weight: 700;
-            color: #e63946;
+            color: #000;
             text-decoration: none;
         }
         
@@ -68,7 +68,7 @@
         }
         
         nav ul li a:hover {
-            color: #e63946;
+            color: #000;
         }
         
         .cart-icon {
@@ -86,7 +86,7 @@
             position: absolute;
             top: -10px;
             right: -10px;
-            background-color: #e63946;
+            background-color: #000;
             color: white;
             border-radius: 50%;
             width: 20px;
@@ -118,7 +118,7 @@
         }
         
         .breadcrumb ul li a:hover {
-            color: #e63946;
+            color: #000;
         }
         
         /* Checkout section */
@@ -133,7 +133,7 @@
         
         .checkout-container {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
         }
         
@@ -168,7 +168,7 @@
             justify-content: center;
             width: 30px;
             height: 30px;
-            background-color: #e63946;
+            background-color: #000;
             color: white;
             border-radius: 50%;
             margin-right: 10px;
@@ -202,7 +202,12 @@
         
         .form-control:focus {
             outline: none;
-            border-color: #e63946;
+            border-color: #000;
+        }
+
+        /* Highlight invalid inputs */
+        .input-error {
+            border-color: #e63946 !important;
         }
         
         .form-check {
@@ -236,7 +241,7 @@
         }
         
         .payment-method:hover {
-            border-color: #e63946;
+            border-color: #000;
         }
         
         .payment-method.selected {
@@ -596,10 +601,6 @@
             .checkout-container {
                 grid-template-columns: 1fr;
             }
-            
-            .order-summary {
-                order: -1;
-            }
         }
         
         @media (max-width: 768px) {
@@ -643,6 +644,7 @@
             }
         }
     </style>
+    <script src="js/layout.js" defer></script>
 </head>
 <body>
     <!-- Include cart.js -->
@@ -655,13 +657,14 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="products.html">Shop</a></li>
+                    <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
-            <div class="cart-icon">
+            <a href="cart.html" class="cart-icon" aria-label="View Cart">
                 <span>🛒</span>
                 <span class="cart-count">3</span>
-            </div>
+            </a>
         </div>
     </header>
 
@@ -702,128 +705,97 @@
             <div class="checkout-container">
                 <!-- Checkout form -->
                 <div class="checkout-form">
-		<form id="checkout-form" action="https://formsubmit.co/jaypindoria05@gmail.com" method="POST">
-		<!-- Shipping information -->
-		<div class="form-section">
-		  <h2 class="form-section-title">
-			<span class="section-number">1</span>
-			Shipping Information
-		  </h2>
-		  <div class="form-row">
-			<div class="form-group">
-			  <label for="first-name">First Name</label>
-			  <input type="text" id="first-name" name="First Name" class="form-control" required>
-			</div>
-			<div class="form-group">
-			  <label for="last-name">Last Name</label>
-			  <input type="text" id="last-name" name="Last Name" class="form-control" required>
-			</div>
-		  </div>
-
-		  <div class="form-group">
-			<label for="email">Email Address</label>
-			<input type="email" id="email" name="Email" class="form-control" required>
-		  </div>
-
-		  <div class="form-group">
-			<label for="phone">Phone Number</label>
-			<input type="tel" id="phone" name="Phone" class="form-control" required>
-		  </div>
-
-		  <div class="form-group">
-			<label for="address">Street Address</label>
-			<input type="text" id="address" name="Address" class="form-control" required>
-		  </div>
-
-		  <div class="form-row">
-			<div class="form-group">
-			  <label for="city">City</label>
-			  <input type="text" id="city" name="City" class="form-control" required>
-			</div>
-		  </div>
-
-		  <!-- Hidden field for payment reference -->
-		  <input type="hidden" id="payment-reference" name="Payment Reference">
-		</div>
-
-		<!-- Shipping method & other sections remain unchanged -->
-		</form>
-		</div>
-		
+                    <form id="checkout-form" action="https://formsubmit.co/jaypindoria05@gmail.com" method="POST">
+                        <!-- Shipping information -->
+                        <div class="form-section">
+                            <h2 class="form-section-title">
+                                <span class="section-number">1</span>
+                                Shipping Information
+                            </h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="first-name">First Name</label>
+                                    <input type="text" id="first-name" name="first_name" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last-name">Last Name</label>
+                                    <input type="text" id="last-name" name="last_name" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Street Address</label>
+                                <input type="text" id="address" name="address" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <select id="city" name="city" class="form-control" required>
+                                        <option value="">Select City</option>
+                                        <option value="Mombasa">Mombasa</option>
+                                        <option value="Nairobi">Nairobi</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Hidden inputs to include order details in form submission -->
+                        <input type="hidden" id="order-items-input" name="order_items">
+                        <input type="hidden" id="order-items-readable" name="order_items_readable">
+                        <input type="hidden" id="order-subtotal-input" name="order_subtotal">
+                        <input type="hidden" id="order-shipping-input" name="order_shipping">
+                        <input type="hidden" id="order-total-input" name="order_total">
+                        <!-- FormSubmit options -->
+                        <input type="hidden" name="_subject" value="New CarsKe Order">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="index.html">
+                        
+    
+                    </form>
+                </div>
+                
                 <!-- Order summary -->
                 <div class="order-summary">
                     <h2 class="summary-title">Order Summary</h2>
                     
-                    <div class="order-items">
-                        <!-- Item 1 -->
-                        <div class="order-item">
-                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Classic White T-shirt" class="item-img">
-                            <div class="item-info">
-                                <p class="item-name">Classic White T-shirt</p>
-                                <p class="item-details">Size: M | Color: White | Qty: 1</p>
-                            </div>
-                            <div class="item-price">$24.99</div>
-                        </div>
-                        
-                        <!-- Item 2 -->
-                        <div class="order-item">
-                            <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Vintage Black T-shirt" class="item-img">
-                            <div class="item-info">
-                                <p class="item-name">Vintage Black T-shirt</p>
-                                <p class="item-details">Size: L | Color: Black | Qty: 1</p>
-                            </div>
-                            <div class="item-price">$29.99</div>
-                        </div>
-                        
-                        <!-- Item 3 -->
-                        <div class="order-item">
-                            <img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Striped Navy T-shirt" class="item-img">
-                            <div class="item-info">
-                                <p class="item-name">Striped Navy T-shirt</p>
-                                <p class="item-details">Size: S | Color: Navy | Qty: 1</p>
-                            </div>
-                            <div class="item-price">$27.99</div>
-                        </div>
-                    </div>
+                    <div class="order-items" id="checkout-items"></div>
                     
                     <div class="summary-item">
                         <span>Subtotal</span>
-                        <span>$82.97</span>
+                        <span id="checkout-subtotal">KSh 0</span>
                     </div>
                     
                     <div class="summary-item">
                         <span>Shipping</span>
-                        <span id="shipping-cost">$4.99</span>
+                        <span id="shipping-cost">KSh 0</span>
                     </div>
                     
-                    <div class="summary-item">
-                        <span>Tax</span>
-                        <span>$7.47</span>
-                    </div>
+                    
                     
                     <div class="summary-total">
                         <span>Total</span>
-                        <span id="order-total">$95.43</span>
+                        <span id="order-total">KSh 0</span>
                     </div>
                     
                     <!-- Mpesa Payment Section -->
                     <div class="payment-section">
-                        <div class="price-display" id="checkout-total">KES 95.43</div>
+                        <div class="price-display" id="checkout-total">KSh 0</div>
                         
                         <button id="payButton" class="pay-button">
                             <i class="fas fa-credit-card"></i> Lipa na Mpesa
                         </button>
-                        
-                        <div class="divider">or pay with</div>
-                        
-                        <div class="alternative-payments">
-                            <button id="paypalButton" class="alt-pay-button paypal">
-                                <i class="fab fa-paypal"></i> PayPal
-                            </button>
-                            <button id="stripeButton" class="alt-pay-button stripe">
-                                <i class="fab fa-cc-stripe"></i> Stripe
-                            </button>
-                        </div>
                     </div>
                     <a href="cart.html" class="back-to-cart">Back to Cart</a>
                 </div>
@@ -849,7 +821,6 @@
                         <li><a href="products.html">All Products</a></li>
                         <li><a href="#">New Arrivals</a></li>
                         <li><a href="#">Best Sellers</a></li>
-                        <li><a href="#">Sale</a></li>
                     </ul>
                 </div>
                 
@@ -857,9 +828,7 @@
                     <h3>Customer Care</h3>
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
                     </ul>
                 </div>
                 
@@ -871,92 +840,297 @@
             </div>
         </div>
     </footer>
-	<script src="https://js.paystack.co/v1/inline.js"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
-    <script src="https://js.stripe.com/v3/"></script>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-<script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const payButton = document.getElementById('payButton');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const payButton = document.getElementById('payButton');
+            
+            function getCart() {
+                try {
+                    return JSON.parse(localStorage.getItem('cart')) || [];
+                } catch (e) {
+                    return [];
+                }
+            }
 
-  function calculateTotal() {
-    const orderTotal = document.getElementById('order-total');
-    if (orderTotal) {
-      const totalText = orderTotal.textContent.replace('$', '').replace('KSh ', '');
-      const totalAmount = parseFloat(totalText);
-      return Math.round(totalAmount * 100); // Convert to minor units
-    }
-    return 9543; // Default fallback
-  }
+            // Validate city selection before proceeding
+            function validateCitySelection() {
+                const citySelect = document.getElementById('city');
+                if (!citySelect) return true;
+                if (!citySelect.value) {
+                    citySelect.classList.add('input-error');
+                    citySelect.focus();
+                    alert('Please select your city to calculate shipping before continuing.');
+                    return false;
+                }
+                citySelect.classList.remove('input-error');
+                return true;
+            }
 
-  function payWithPaystack() {
-    const amount = calculateTotal();
-    const ref = 'CARSKE_' + Date.now(); // unique reference
+            // Disable Pay button until city is selected
+            function updatePayButtonState() {
+                const citySelect = document.getElementById('city');
+                if (payButton) {
+                    payButton.disabled = !(citySelect && citySelect.value);
+                }
+            }
+            
+            function renderCheckoutItems() {
+                const itemsContainer = document.getElementById('checkout-items');
+                const cart = getCart();
+                
+                if (!itemsContainer) return;
+                if (cart.length === 0) {
+                    window.location.href = 'cart.html';
+                    return;
+                }
+                
+                let html = '';
+                let subtotal = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    html += `
+                        <div class="order-item">
+                            <img src="${item.image}" alt="${item.name}" class="item-img">
+                            <div class="item-info">
+                                <p class="item-name">${item.name}</p>
+                                <p class="item-details">Qty: ${item.quantity}</p>
+                            </div>
+                            <div class="item-price">KSh ${itemTotal.toFixed(0)}</div>
+                        </div>
+                    `;
+                });
+                
+                itemsContainer.innerHTML = html;
+                const subtotalEl = document.getElementById('checkout-subtotal');
+                if (subtotalEl) subtotalEl.textContent = `KSh ${subtotal.toFixed(0)}`;
 
-    // Get all form fields
-    const firstName = document.getElementById('first-name').value;
-    const lastName = document.getElementById('last-name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const address = document.getElementById('address').value;
-    const city = document.getElementById('city').value;
+                // Populate order items details into form hidden input
+                populateFormOrderDetails(cart);
+                
+                updateTotals();
+            }
+            
+            function getSelectedShippingCost() {
+                const citySelect = document.getElementById('city');
+                const city = citySelect ? citySelect.value.trim().toLowerCase() : '';
+                if (city === 'mombasa') return 100;
+                if (city === 'nairobi') return 220;
+                return 0; // No shipping cost until a valid city is selected
+            }
+            
+            function updateTotals() {
+                const subtotalEl = document.getElementById('checkout-subtotal');
+                const shippingCostEl = document.getElementById('shipping-cost');
+                const totalEl = document.getElementById('order-total');
+                
+                if (!subtotalEl || !shippingCostEl || !totalEl) return;
+                
+                const subtotal = parseFloat(subtotalEl.textContent.replace('KSh','').trim()) || 0;
+                const shipping = getSelectedShippingCost();
+                const total = subtotal + shipping;
+                
+                shippingCostEl.textContent = `KSh ${shipping.toFixed(0)}`;
+                totalEl.textContent = `KSh ${total.toFixed(0)}`;
+                
+                updatePriceDisplay();
 
-    // Validate form
-    if (!firstName || !lastName || !email || !phone || !address || !city) {
-      alert('⚠️ Please fill all shipping details before proceeding.');
-      return;
-    }
+                // Update form hidden inputs with totals
+                updateFormTotals(subtotal, shipping, total);
+            }
+            
+            function populateFormOrderDetails(cart) {
+                const itemsInput = document.getElementById('order-items-input');
+                const itemsReadableInput = document.getElementById('order-items-readable');
+                if (!itemsInput) return;
+                // Store a concise description for each item
+                const details = cart.map(item => ({
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price,
+                    total: item.price * item.quantity
+                }));
+                itemsInput.value = JSON.stringify(details);
+                if (itemsReadableInput) {
+                    const readable = details.map(d => `${d.name} x${d.quantity} @ KSh ${d.price} = KSh ${d.total}`).join('; ');
+                    itemsReadableInput.value = readable;
+                }
+            }
 
-    // Initialize Paystack
-    const handler = PaystackPop.setup({
-      key: 'pk_test_a2563b6c10c7bffcb98332d9c27a9194967acfd8', // Replace with your public key
-      email: email,
-      amount: amount,
-      currency: 'KES',
-      ref: ref,
-      label: "CarsKe Order Payment",
+            function updateFormTotals(subtotal, shipping, total) {
+                const subtotalInput = document.getElementById('order-subtotal-input');
+                const shippingInput = document.getElementById('order-shipping-input');
+                const totalInput = document.getElementById('order-total-input');
+                if (subtotalInput) subtotalInput.value = subtotal.toFixed(0);
+                if (shippingInput) shippingInput.value = shipping.toFixed(0);
+                if (totalInput) totalInput.value = total.toFixed(0);
+            }
 
-      callback: function(response) {
-        // ✅ Payment success
-        alert(`✅ Payment successful! Reference: ${response.reference}`);
+            // Build and persist order to localStorage
+            function saveOrderToLocal(paymentRef) {
+                const cart = getCart();
+                if (!Array.isArray(cart) || cart.length === 0) return;
+                const cityEl = document.getElementById('city');
+                const emailEl = document.getElementById('email');
 
-        // Save reference in hidden input
-        document.getElementById('payment-reference').value = response.reference;
+                const subtotal = cart.reduce((sum, i) => sum + (i.price || 0) * (i.quantity || 1), 0);
+                const shipping = getSelectedShippingCost();
+                const total = subtotal + shipping;
 
-        // Save orderData in localStorage for order-success page
-        const orderData = {
-          "🧾 Payment Reference": response.reference,
-          "💰 Amount Paid (KES)": (amount / 100).toFixed(2),
-          "👤 Name": `${firstName} ${lastName}`,
-          "📧 Email": email,
-          "📞 Phone": phone,
-          "🏠 Address": `${address}, ${city}`,
-          "📅 Date": new Date().toLocaleString()
-        };
-        localStorage.setItem("orderData", JSON.stringify(orderData));
+                const order = {
+                    id: 'ORD-' + Date.now(),
+                    createdAt: Date.now(),
+                    items: cart.map(i => ({ name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
+                    subtotal,
+                    shipping,
+                    total,
+                    city: cityEl ? cityEl.value : '',
+                    email: emailEl ? emailEl.value : '',
+                    paymentRef: paymentRef || null
+                };
 
-        // Submit form to FormSubmit
-        document.getElementById('checkout-form').submit();
-      },
+                try {
+                    const existing = JSON.parse(localStorage.getItem('carskeOrders')) || [];
+                    const next = Array.isArray(existing) ? existing : [];
+                    next.push(order);
+                    localStorage.setItem('carskeOrders', JSON.stringify(next));
+                    // Clear cart after saving order
+                    localStorage.setItem('cart', JSON.stringify([]));
+                    return order.id;
+                } catch (e) {
+                    // Fallback: ensure cart is cleared to avoid duplicate charges
+                    localStorage.setItem('cart', JSON.stringify([]));
+                    return order.id;
+                }
+            }
 
-      onClose: function() {
-        alert('❌ Payment was not completed. You can try again.');
-      }
-    });
+            // Function to calculate total from cart
+            function calculateTotal() {
+                const orderTotal = document.getElementById('order-total');
+                if (orderTotal) {
+                    const totalText = orderTotal.textContent.replace('KSh', '').trim();
+                    const totalAmount = parseFloat(totalText);
+                    return Math.round(totalAmount * 100); // Convert to cents for Paystack
+                }
+                return 9543; // Default fallback amount (KES 95.43)
+            }
+            
+            // Function to update the price display
+            function updatePriceDisplay() {
+                const orderTotal = document.getElementById('order-total');
+                const checkoutTotal = document.getElementById('checkout-total');
+                if (orderTotal && checkoutTotal) {
+                    const totalText = orderTotal.textContent.replace('KSh', '').trim();
+                    checkoutTotal.textContent = `KSh ${totalText}`;
+                }
+            }
+            
+            // Update price display on page load
+            updatePriceDisplay();
+            // Ensure pay button reflects city selection state on load
+            updatePayButtonState();
+            
+            // Add event listener to pay button
+            if (payButton) {
+                payButton.addEventListener('click', payWithPaystack);
+            }
+            
+            function payWithPaystack() {
+                // Require city selection before payment
+                if (!validateCitySelection()) return;
+                const amount = calculateTotal();
+                const ref = 'CARSKE_' + Date.now();
+                
+                // Get customer email from form
+                const emailInput = document.getElementById('email');
+                const customerEmail = emailInput ? emailInput.value : 'customer@example.com';
+                
+                const handler = PaystackPop.setup({
+                    key: 'pk_test_a2563b6c10c7bffcb98332d9c27a9194967acfd8', 
+                    email: customerEmail, 
+                    amount: amount, 
+                    currency: 'KES',
+                    ref: ref,
+                    label: "CarsKe T-shirt Purchase",
+                    callback: function(response) {
+                        alert(`Payment successful! Reference: ${response.reference}`);
+                        // Persist successful paid order, capture order ID
+                        const orderId = saveOrderToLocal(response.reference);
+                        const form = document.getElementById('checkout-form');
+                        if (form) {
+                            // Ensure hidden inputs are up to date
+                            const subtotalEl = document.getElementById('checkout-subtotal');
+                            const subtotal = parseFloat((subtotalEl?.textContent || '0').replace('KSh','').trim()) || 0;
+                            const shipping = getSelectedShippingCost();
+                            const total = subtotal + shipping;
+                            updateFormTotals(subtotal, shipping, total);
 
-    handler.openIframe();
-  }
+                            // Include payment reference in a hidden field for email context
+                            let refInput = document.getElementById('payment-reference-input');
+                            if (!refInput) {
+                                refInput = document.createElement('input');
+                                refInput.type = 'hidden';
+                                refInput.name = 'payment_reference';
+                                refInput.id = 'payment-reference-input';
+                                form.appendChild(refInput);
+                            }
+                            refInput.value = response.reference;
 
-  // Trigger pay on click
-  if (payButton) {
-    payButton.addEventListener('click', payWithPaystack);
-  }
-});
-</script>
+                            // Also include the reference in the email subject for easy tracking
+                            const subjectInput = form.querySelector('input[name="_subject"]');
+                            if (subjectInput) {
+                                subjectInput.value = `New CarsKe Order - Ref ${response.reference}`;
+                            }
 
+                            // Redirect to thank-you page after submission via FormSubmit
+                            const thankUrl = `thank-you.html?orderId=${encodeURIComponent(orderId)}&ref=${encodeURIComponent(response.reference)}`;
+                            const nextInput = form.querySelector('input[name="_next"]');
+                            if (nextInput) {
+                                nextInput.value = thankUrl;
+                            }
 
-</script>
+                            form.submit();
+                        }
+                        // No manual redirect needed; FormSubmit uses _next to go to thank-you
+                    },
+                    onClose: function() {
+                        alert('Payment was not completed. You can try again.');
+                    }
+                });
+                
+                handler.openIframe();
+            }
+            
+            // Render items and totals on load
+            renderCheckoutItems();
+            
+            // Update totals when city changes
+            const citySelect = document.getElementById('city');
+            if (citySelect) {
+                citySelect.addEventListener('change', function() {
+                    updateTotals();
+                    updatePayButtonState();
+                });
+            }
+
+            // Persist order on form submission (Place Order) and enforce city selection
+            const checkoutForm = document.getElementById('checkout-form');
+            if (checkoutForm) {
+                checkoutForm.addEventListener('submit', function(e) {
+                    if (!validateCitySelection()) {
+                        e.preventDefault();
+                        return;
+                    }
+                    // Persist draft order (without payment reference)
+                    saveOrderToLocal(null);
+                });
+            }
+            
+        });
+    </script>
 </body>
 </html>

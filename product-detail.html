@@ -549,8 +549,11 @@
             }
         }
     </style>
+    <script src="js/layout.js" defer></script>
 </head>
 <body>
+    <!-- Include cart.js -->
+    <script src="cart.js" defer></script>
     <!-- Header section -->
     <header>
         <div class="container header-container">
@@ -559,6 +562,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="products.html">Shop</a></li>
+                    <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -579,7 +583,7 @@
                 <li>></li>
                 <li><a href="products.html">Shop</a></li>
                 <li>></li>
-                <li>Classic White T-shirt</li>
+                <li id="breadcrumb-title">Classic White T-shirt</li>
             </ul>
         </div>
     </div>
@@ -601,8 +605,8 @@
                 
                 <!-- Product info -->
                 <div class="product-info">
-                    <h1>Classic White T-shirt</h1>
-                    <p class="product-price">$24.99</p>
+                    <h1 id="product-title">Classic White T-shirt</h1>
+                    <p class="product-price" id="product-price">KSh 1800</p>
                     <div class="stars">★★★★★ (24 reviews)</div>
                     <p class="product-description">Our classic white t-shirt is made from 100% organic cotton for ultimate comfort and durability. Perfect for everyday wear, this versatile piece features a timeless design that pairs well with anything in your wardrobe.</p>
                     
@@ -642,7 +646,7 @@
                     </div>
                     
                     <div class="add-to-cart-container">
-                        <button class="btn" id="add-to-cart">Add to Cart</button>
+                        <button id="add-to-cart" class="btn add-to-cart" data-id="classic-white" data-name="Classic White T-shirt" data-price="1800" data-image="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">Add to Cart</button>
                         <button class="btn btn-outline">Add to Wishlist</button>
                     </div>
                 </div>
@@ -764,7 +768,6 @@
                         <div class="product-card-info">
                             <h3 class="product-card-title">Vintage Black T-shirt</h3>
                             <p class="product-card-price">$29.99</p>
-                            <a href="#" class="btn">View Product</a>
                         </div>
                     </div>
                     
@@ -774,7 +777,6 @@
                         <div class="product-card-info">
                             <h3 class="product-card-title">Urban Graphic T-shirt</h3>
                             <p class="product-card-price">$34.99</p>
-                            <a href="#" class="btn">View Product</a>
                         </div>
                     </div>
                     
@@ -784,7 +786,6 @@
                         <div class="product-card-info">
                             <h3 class="product-card-title">Striped Navy T-shirt</h3>
                             <p class="product-card-price">$27.99</p>
-                            <a href="#" class="btn">View Product</a>
                         </div>
                     </div>
                     
@@ -794,7 +795,6 @@
                         <div class="product-card-info">
                             <h3 class="product-card-title">Casual Gray T-shirt</h3>
                             <p class="product-card-price">$22.99</p>
-                            <a href="#" class="btn">View Product</a>
                         </div>
                     </div>
                 </div>
@@ -820,7 +820,6 @@
                         <li><a href="products.html">All Products</a></li>
                         <li><a href="#">New Arrivals</a></li>
                         <li><a href="#">Best Sellers</a></li>
-                        <li><a href="#">Sale</a></li>
                     </ul>
                 </div>
                 
@@ -828,9 +827,6 @@
                     <h3>Customer Care</h3>
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
                     </ul>
                 </div>
                 
@@ -845,6 +841,34 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Render product detail based on query parameter
+            const params = new URLSearchParams(window.location.search);
+            const productIdParam = params.get('id');
+            const PRODUCTS = {
+                'bmw-f90': { id: 'bmw-f90', name: 'BMW F90 T-shirt', price: 1600, image: 'bmw-f90.jpg' },
+                'porsche': { id: 'porsche', name: 'Porsche T-shirt', price: 1600, image: 'porsche.jpg' },
+                'supra': { id: 'supra', name: 'Supra T-shirt', price: 1600, image: 'supra.jpg' },
+                'needmoney': { id: 'needmoney', name: 'Need Money T-shirt', price: 1600, image: 'needmoney.jpg' }
+            };
+            function renderProduct(p) {
+                if (!p) return;
+                const titleEl = document.getElementById('product-title');
+                const priceEl = document.getElementById('product-price');
+                const mainImgEl = document.getElementById('main-image');
+                const breadcrumbEl = document.getElementById('breadcrumb-title');
+                const addBtn = document.getElementById('add-to-cart') || document.querySelector('.add-to-cart');
+                if (titleEl) titleEl.textContent = p.name;
+                if (priceEl) priceEl.textContent = `KSh ${p.price}`;
+                if (mainImgEl) { mainImgEl.src = p.image; mainImgEl.alt = p.name; }
+                if (breadcrumbEl) breadcrumbEl.textContent = p.name;
+                if (addBtn) {
+                    addBtn.dataset.id = p.id;
+                    addBtn.dataset.name = p.name;
+                    addBtn.dataset.price = String(p.price);
+                    addBtn.dataset.image = p.image;
+                }
+            }
+            renderProduct(PRODUCTS[productIdParam]);
             // Product image gallery
             const mainImage = document.getElementById('main-image');
             const thumbnails = document.querySelectorAll('.thumbnail');
@@ -946,42 +970,19 @@
             updateCartCount();
             
             addToCartBtn.addEventListener('click', function() {
-                const quantity = parseInt(quantityInput.value);
-                const productTitle = 'Classic White T-shirt';
-                const productPrice = 29.99; // Price from the product detail
+                const quantityInputEl = document.querySelector('.quantity-input');
+                const quantity = parseInt(quantityInputEl?.value) || 1;
+                const productTitle = document.getElementById('product-title')?.textContent || 'T-shirt';
+                const productPrice = parseFloat((document.getElementById('product-price')?.textContent || '').replace(/[^0-9.]/g, '')) || 0;
                 const productImage = document.getElementById('main-image').src;
                 
                 // Create a unique ID for this product variation
                 const productId = `tshirt-${selectedColor}-${selectedSize}`;
                 
-                // Check if this product is already in the cart
-                const existingItemIndex = cart.findIndex(item => item.id === productId);
-                
-                if (existingItemIndex !== -1) {
-                    // Update quantity if product already exists
-                    cart[existingItemIndex].quantity += quantity;
-                    // Make sure quantity doesn't exceed 10
-                    if (cart[existingItemIndex].quantity > 10) {
-                        cart[existingItemIndex].quantity = 10;
-                    }
-                } else {
-                    // Add new item to cart
-                    cart.push({
-                        id: productId,
-                        title: productTitle,
-                        price: productPrice,
-                        color: selectedColor,
-                        size: selectedSize,
-                        quantity: quantity,
-                        image: productImage
-                    });
+                // Use shared cart.js addToCart for consistent behavior
+                for (let i = 0; i < quantity; i++) {
+                    addToCart(productId, productTitle, productPrice, productImage);
                 }
-                
-                // Save cart to localStorage
-                localStorage.setItem('cart', JSON.stringify(cart));
-                
-                // Update cart count
-                updateCartCount();
                 
                 // Animation effect
                 this.textContent = 'Added to Cart!';

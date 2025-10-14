@@ -45,7 +45,7 @@
         .logo {
             font-size: 2rem;
             font-weight: 700;
-            color: #e63946;
+            color: #000;
             text-decoration: none;
         }
         
@@ -66,7 +66,7 @@
         }
         
         nav ul li a:hover {
-            color: #e63946;
+            color: #000;
         }
         
         .cart-icon {
@@ -78,7 +78,7 @@
             position: absolute;
             top: -10px;
             right: -10px;
-            background-color: #e63946;
+            background-color: #000;
             color: white;
             border-radius: 50%;
             width: 20px;
@@ -118,7 +118,7 @@
         
         .btn {
             display: inline-block;
-            background-color: #e63946;
+            background-color: #000;
             color: white;
             padding: 12px 30px;
             border: none;
@@ -131,7 +131,7 @@
         }
         
         .btn:hover {
-            background-color: #c1121f;
+            background-color: #333;
         }
         
         /* Featured products */
@@ -190,7 +190,7 @@
         
         .product-price {
             font-weight: 700;
-            color: #e63946;
+            color: #000;
             margin-bottom: 15px;
         }
         
@@ -226,7 +226,7 @@
         }
         
         .logo-card.active {
-            border: 3px solid #e63946;
+            border: 3px solid #000;
             transform: translateY(-10px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
@@ -252,7 +252,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(230, 57, 70, 0.8);
+            background: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 10px 0;
             text-align: center;
@@ -424,6 +424,7 @@
             }
         }
     </style>
+    <script src="js/layout.js" defer></script>
 </head>
 <body>
     <!-- Header section -->
@@ -434,11 +435,12 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="products.html">Shop</a></li>
+                    <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
             <div class="cart-icon">
-                <a href="cart.html" style="text-decoration: none; color: inherit;">
+                <a href="cart.html">
                     <span>🛒</span>
                     <span class="cart-count">0</span>
                 </a>
@@ -455,61 +457,55 @@
         </div>
     </section>
 
-    <!-- Car Logo Section -->
-    <section class="car-logos">
+    <!-- New Arrivals -->
+    <section class="featured">
         <div class="container">
             <div class="section-title">
-                <h2>Shop by Car Brand</h2>
-                <p>Find the perfect t-shirt featuring your favorite car brand</p>
+                <h2>New Arrivals</h2>
+                <p>Fresh drop — four premium tees, KSh 1600 each.</p>
             </div>
-            <div class="logo-grid">
-                <!-- Car Logo 1 -->
-                <div class="logo-card" data-brand="bmw">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/200px-BMW.svg.png" alt="BMW Logo" class="car-logo-img">
-                    <div class="logo-overlay">
-                        <h3 class="logo-name">BMW</h3>
+            <div class="products">
+                <!-- New 1 -->
+                <div class="product-card">
+                    <img src="bmw-f90.jpg" alt="BMW F90 T-shirt" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">BMW F90 T-shirt</h3>
+                        <p class="product-price">KSh 1600</p>
+                        <button class="btn">Add to Cart</button>
                     </div>
                 </div>
-                
-                <!-- Car Logo 2 -->
-                <div class="logo-card" data-brand="mercedes">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/200px-Mercedes-Logo.svg.png" alt="Mercedes Logo" class="car-logo-img">
-                    <div class="logo-overlay">
-                        <h3 class="logo-name">Mercedes</h3>
+                <!-- New 2 -->
+                <div class="product-card">
+                    <img src="porsche.jpg" alt="Porsche T-shirt" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Porsche T-shirt</h3>
+                        <p class="product-price">KSh 1600</p>
+                        <button class="btn">Add to Cart</button>
                     </div>
                 </div>
-                
-                <!-- Car Logo 3 -->
-                <div class="logo-card" data-brand="audi">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Audi-Logo_2016.svg/200px-Audi-Logo_2016.svg.png" alt="Audi Logo" class="car-logo-img">
-                    <div class="logo-overlay">
-                        <h3 class="logo-name">Audi</h3>
+                <!-- New 3 -->
+                <div class="product-card">
+                    <img src="supra.jpg" alt="Supra T-shirt" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Supra T-shirt</h3>
+                        <p class="product-price">KSh 1600</p>
+                        <button class="btn">Add to Cart</button>
                     </div>
                 </div>
-                
-                <!-- Car Logo 4 -->
-                <div class="logo-card" data-brand="ferrari">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Ferrari-Logo.svg/200px-Ferrari-Logo.svg.png" alt="Ferrari Logo" class="car-logo-img">
-                    <div class="logo-overlay">
-                        <h3 class="logo-name">Ferrari</h3>
+                <!-- New 4 -->
+                <div class="product-card">
+                    <img src="needmoney.jpg" alt="Need Money T-shirt" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">Need Money T-shirt</h3>
+                        <p class="product-price">KSh 1600</p>
+                        <button class="btn">Add to Cart</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     
-    <!-- Car T-shirt Variations Section -->
-    <section class="tshirt-variations" id="tshirt-variations">
-        <div class="container">
-            <div class="section-title">
-                <h2>T-shirt Variations</h2>
-                <p>Click on a car logo above to see t-shirt designs</p>
-            </div>
-            <div class="variations-container">
-                <!-- Variations will be loaded dynamically -->
-            </div>
-        </div>
-    </section>
 
     <!-- Footer section -->
     <footer>
@@ -529,7 +525,6 @@
                         <li><a href="products.html">All Products</a></li>
                         <li><a href="#">New Arrivals</a></li>
                         <li><a href="#">Best Sellers</a></li>
-                        <li><a href="#">Sale</a></li>
                     </ul>
                 </div>
                 
@@ -537,9 +532,7 @@
                     <h3>Customer Care</h3>
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
                     </ul>
                 </div>
                 
@@ -557,8 +550,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const addToCartButtons = document.querySelectorAll('.btn');
             const cartCount = document.querySelector('.cart-count');
-            const logoCards = document.querySelectorAll('.logo-card');
-            const variationsContainer = document.querySelector('.variations-container');
             
             // Initialize cart from localStorage or create empty cart
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -572,164 +563,31 @@
             // Initialize cart count
             updateCartCount();
             
-            // Car t-shirt variations data
-            const tshirtVariations = {
-                bmw: [
-                    {
-                        id: 'bmw-1',
-                        title: 'BMW M-Power T-shirt',
-                        price: 34.99,
-                        image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    },
-                    {
-                        id: 'bmw-2',
-                        title: 'BMW Classic Logo T-shirt',
-                        price: 29.99,
-                        image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    },
-                    {
-                        id: 'bmw-3',
-                        title: 'BMW Motorsport T-shirt',
-                        price: 32.99,
-                        image: 'https://images.unsplash.com/photo-1503341504253-dff4815485f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    }
-                ],
-                mercedes: [
-                    {
-                        id: 'merc-1',
-                        title: 'Mercedes AMG T-shirt',
-                        price: 36.99,
-                        image: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    },
-                    {
-                        id: 'merc-2',
-                        title: 'Mercedes Benz Star T-shirt',
-                        price: 31.99,
-                        image: 'https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    }
-                ],
-                audi: [
-                    {
-                        id: 'audi-1',
-                        title: 'Audi Quattro T-shirt',
-                        price: 33.99,
-                        image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    },
-                    {
-                        id: 'audi-2',
-                        title: 'Audi Sport T-shirt',
-                        price: 34.99,
-                        image: 'https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    },
-                    {
-                        id: 'audi-3',
-                        title: 'Audi Rings T-shirt',
-                        price: 29.99,
-                        image: 'https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    }
-                ],
-                ferrari: [
-                    {
-                        id: 'ferrari-1',
-                        title: 'Ferrari Scuderia T-shirt',
-                        price: 39.99,
-                        image: 'https://images.unsplash.com/photo-1551794840-8ae3b9c2c05f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    },
-                    {
-                        id: 'ferrari-2',
-                        title: 'Ferrari Prancing Horse T-shirt',
-                        price: 42.99,
-                        image: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-                    }
-                ]
-            };
+            // Removed brand variation logic to only show four new arrivals
             
             // Function to add item to cart
             function addToCart(item) {
-                // Check if item already exists in cart
-                const existingItemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
-                
+                // Normalize item keys to match cart.js expectations
+                const cartItem = {
+                    id: item.id,
+                    name: item.title || item.name,
+                    price: item.price,
+                    image: item.image,
+                    quantity: 1
+                };
+
+                const existingItemIndex = cart.findIndex(ci => ci.id === cartItem.id);
                 if (existingItemIndex !== -1) {
-                    // Increment quantity if item already exists
                     cart[existingItemIndex].quantity += 1;
                 } else {
-                    // Add new item with quantity 1
-                    cart.push({
-                        ...item,
-                        quantity: 1
-                    });
+                    cart.push(cartItem);
                 }
-                
-                // Save cart to localStorage
+
                 localStorage.setItem('cart', JSON.stringify(cart));
-                
-                // Update cart count display
                 updateCartCount();
             }
             
-            // Function to display t-shirt variations for a specific brand
-            function displayTshirtVariations(brand) {
-                // Clear previous variations
-                variationsContainer.innerHTML = '';
-                
-                // Scroll to variations section
-                document.getElementById('tshirt-variations').scrollIntoView({ behavior: 'smooth' });
-                
-                // Get variations for the selected brand
-                const variations = tshirtVariations[brand];
-                
-                if (variations && variations.length > 0) {
-                    // Create and append variation cards
-                    variations.forEach(variation => {
-                        const variationCard = document.createElement('div');
-                        variationCard.className = 'variation-card';
-                        variationCard.innerHTML = `
-                            <img src="${variation.image}" alt="${variation.title}" class="variation-img">
-                            <div class="variation-info">
-                                <h3 class="variation-title">${variation.title}</h3>
-                                <p class="variation-price">$${variation.price.toFixed(2)}</p>
-                                <button class="btn" data-id="${variation.id}">Add to Cart</button>
-                            </div>
-                        `;
-                        variationsContainer.appendChild(variationCard);
-                    });
-                    
-                    // Add event listeners to new Add to Cart buttons
-                    const newAddToCartButtons = variationsContainer.querySelectorAll('.btn');
-                    newAddToCartButtons.forEach(button => {
-                        button.addEventListener('click', function() {
-                            const id = this.getAttribute('data-id');
-                            const brand = document.querySelector('.logo-card.active').getAttribute('data-brand');
-                            const variation = tshirtVariations[brand].find(item => item.id === id);
-                            
-                            if (variation) {
-                                addToCart(variation);
-                                
-                                // Animation effect
-                                button.textContent = 'Added!';
-                                button.style.backgroundColor = '#28a745';
-                                
-                                setTimeout(() => {
-                                    button.textContent = 'Add to Cart';
-                                    button.style.backgroundColor = '#e63946';
-                                }, 1500);
-                            }
-                        });
-                    });
-                }
-            }
-            
-            // Add click event listeners to logo cards
-            logoCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const brand = this.getAttribute('data-brand');
-                    displayTshirtVariations(brand);
-                    
-                    // Highlight selected logo card
-                    logoCards.forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
+            // Removed brand selection and variation display logic
             
             // Add to cart functionality for initial buttons in featured products
             addToCartButtons.forEach((button, index) => {
@@ -739,19 +597,18 @@
                         const productCard = this.closest('.product-info');
                         const title = productCard.querySelector('.product-title').textContent;
                         const priceText = productCard.querySelector('.product-price').textContent;
-                        const price = parseFloat(priceText.replace('$', ''));
+                        const price = parseFloat(priceText.replace('$', '').replace('KSh', '').trim());
                         const image = productCard.parentElement.querySelector('.product-img').src;
                         
                         // Create a unique ID for this product
                         const id = `featured-${index}`;
                         
                         // Add to cart
-                        addToCart({
-                            id,
-                            title,
-                            price,
-                            image
-                        });
+                        addToCart({ id, title, price, image });
+                        // Trigger cart icon animation
+                        if (typeof triggerCartAnimation === 'function') {
+                            triggerCartAnimation();
+                        }
                         
                         // Animation effect
                         button.textContent = 'Added!';

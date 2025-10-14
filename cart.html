@@ -45,7 +45,7 @@
         .logo {
             font-size: 2rem;
             font-weight: 700;
-            color: #e63946;
+            color: #000;
             text-decoration: none;
         }
         
@@ -66,7 +66,7 @@
         }
         
         nav ul li a:hover {
-            color: #e63946;
+            color: #000;
         }
         
         .cart-icon {
@@ -78,7 +78,7 @@
             position: absolute;
             top: -10px;
             right: -10px;
-            background-color: #e63946;
+            background-color: #000;
             color: white;
             border-radius: 50%;
             width: 20px;
@@ -110,7 +110,7 @@
         }
         
         .breadcrumb ul li a:hover {
-            color: #e63946;
+            color: #000;
         }
         
         /* Cart section */
@@ -121,6 +121,30 @@
         .section-title {
             margin-bottom: 30px;
             text-align: center;
+        }
+        
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .continue-shopping, .clear-cart {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .continue-shopping {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .clear-cart {
+            background-color: #000;
+            color: white;
         }
         
         .cart-container {
@@ -523,8 +547,11 @@
             }
         }
     </style>
+    <script src="js/layout.js" defer></script>
 </head>
 <body>
+    <!-- Include cart.js -->
+    <script src="cart.js" defer></script>
     <!-- Header section -->
     <header>
         <div class="container header-container">
@@ -533,11 +560,11 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="products.html">Shop</a></li>
+                    <li><a href="orders.html">Orders</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
             <div class="cart-icon">
-                <span>🛒</span>
                 <span class="cart-count" id="header-cart-count">3</span>
             </div>
         </div>
@@ -558,6 +585,11 @@
     <section class="cart-section">
         <div class="container">
             <h1 class="section-title">Your Shopping Cart</h1>
+            
+            <div class="cart-actions">
+                <a href="products.html" class="continue-shopping">Continue Shopping</a>
+                <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
+            </div>
             
             <div id="cart-content">
                 <!-- Cart with items -->
@@ -635,14 +667,7 @@
                             <span>Subtotal</span>
                             <span id="subtotal">$82.97</span>
                         </div>
-                        <div class="summary-item">
-                            <span>Shipping</span>
-                            <span id="shipping">$4.99</span>
-                        </div>
-                        <div class="summary-item">
-                            <span>Tax</span>
-                            <span id="tax">$7.47</span>
-                        </div>
+                        <!-- Shipping and Tax rows removed per request -->
                         <div class="promo-code">
                             <label for="promo">Promo Code</label>
                             <div class="promo-input">
@@ -652,7 +677,7 @@
                         </div>
                         <div class="summary-total">
                             <span>Total</span>
-                            <span id="total">$95.43</span>
+                            <span id="total">KSh 95.43</span>
                         </div>
                         <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
                         <a href="products.html" class="continue-shopping">Continue Shopping</a>
@@ -670,43 +695,43 @@
             <div class="recommended-products">
                 <h2 class="section-title">You May Also Like</h2>
                 <div class="products-grid">
-                    <!-- Product 1 -->
+                    <!-- BMW F90 -->
                     <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Casual Gray T-shirt" class="product-img">
+                        <img src="bmw-f90.jpg" alt="BMW F90 T-shirt" class="product-img">
                         <div class="product-card-info">
-                            <h3 class="product-card-title">Casual Gray T-shirt</h3>
-                            <p class="product-card-price">$22.99</p>
-                            <a href="product-detail.html" class="btn">View Product</a>
+                            <h3 class="product-card-title">BMW F90 T-shirt</h3>
+                            <p class="product-card-price">KSh 1600</p>
+                            <button class="btn add-to-cart" onclick="addToCart('bmw-f90','BMW F90 T-shirt',1600,'bmw-f90.jpg')">Add to Cart</button>
                         </div>
                     </div>
-                    
-                    <!-- Product 2 -->
+
+                    <!-- Porsche -->
                     <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Urban Graphic T-shirt" class="product-img">
+                        <img src="porsche.jpg" alt="Porsche T-shirt" class="product-img">
                         <div class="product-card-info">
-                            <h3 class="product-card-title">Urban Graphic T-shirt</h3>
-                            <p class="product-card-price">$34.99</p>
-                            <a href="product-detail.html" class="btn">View Product</a>
+                            <h3 class="product-card-title">Porsche T-shirt</h3>
+                            <p class="product-card-price">KSh 1600</p>
+                            <button class="btn add-to-cart" onclick="addToCart('porsche','Porsche T-shirt',1600,'porsche.jpg')">Add to Cart</button>
                         </div>
                     </div>
-                    
-                    <!-- Product 3 -->
+
+                    <!-- Supra -->
                     <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Premium Black T-shirt" class="product-img">
+                        <img src="supra.jpg" alt="Supra T-shirt" class="product-img">
                         <div class="product-card-info">
-                            <h3 class="product-card-title">Premium Black T-shirt</h3>
-                            <p class="product-card-price">$32.99</p>
-                            <a href="product-detail.html" class="btn">View Product</a>
+                            <h3 class="product-card-title">Supra T-shirt</h3>
+                            <p class="product-card-price">KSh 1600</p>
+                            <button class="btn add-to-cart" onclick="addToCart('supra','Supra T-shirt',1600,'supra.jpg')">Add to Cart</button>
                         </div>
                     </div>
-                    
-                    <!-- Product 4 -->
+
+                    <!-- Need Money -->
                     <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Slim Fit White T-shirt" class="product-img">
+                        <img src="needmoney.jpg" alt="Need Money T-shirt" class="product-img">
                         <div class="product-card-info">
-                            <h3 class="product-card-title">Slim Fit White T-shirt</h3>
-                            <p class="product-card-price">$26.99</p>
-                            <a href="product-detail.html" class="btn">View Product</a>
+                            <h3 class="product-card-title">Need Money T-shirt</h3>
+                            <p class="product-card-price">KSh 1600</p>
+                            <button class="btn add-to-cart" onclick="addToCart('needmoney','Need Money T-shirt',1600,'needmoney.jpg')">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -732,7 +757,6 @@
                         <li><a href="products.html">All Products</a></li>
                         <li><a href="#">New Arrivals</a></li>
                         <li><a href="#">Best Sellers</a></li>
-                        <li><a href="#">Sale</a></li>
                     </ul>
                 </div>
                 
@@ -740,9 +764,6 @@
                     <h3>Customer Care</h3>
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
                     </ul>
                 </div>
                 
@@ -762,8 +783,7 @@
             const cartWithItems = document.getElementById('cart-with-items');
             const emptyCart = document.getElementById('empty-cart');
             const subtotalElement = document.getElementById('subtotal');
-            const shippingElement = document.getElementById('shipping');
-            const taxElement = document.getElementById('tax');
+            // Shipping and Tax elements removed
             const totalElement = document.getElementById('total');
             const cartCount = document.querySelector('.cart-count');
             const applyPromoButton = document.getElementById('apply-promo');
@@ -804,19 +824,19 @@
                     
                     itemElement.innerHTML = `
                         <div class="item-info">
-                            <img src="${item.image}" alt="${item.title}" class="item-image">
+                            <img src="${item.image}" alt="${item.name || item.title || ''}" class="item-image">
                             <div class="item-details">
-                                <h3>${item.title}</h3>
+                                <h3>${item.name || item.title}</h3>
                                 <p>Size: M | Color: Various</p>
                             </div>
                         </div>
-                        <div class="item-price">$${item.price.toFixed(2)}</div>
+                        <div class="item-price">KSh ${item.price.toFixed(2)}</div>
                         <div class="item-quantity">
                             <button class="quantity-btn minus">-</button>
                             <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="10">
                             <button class="quantity-btn plus">+</button>
                         </div>
-                        <div class="item-total">$${itemTotal}</div>
+                        <div class="item-total">KSh ${itemTotal}</div>
                         <button class="remove-btn">×</button>
                     `;
                     
@@ -897,7 +917,7 @@
                 const quantity = cart[itemIndex].quantity;
                 const itemTotal = item.querySelector('.item-total');
                 
-                itemTotal.textContent = '$' + (price * quantity).toFixed(2);
+                itemTotal.textContent = 'KSh ' + (price * quantity).toFixed(2);
                 updateCartSummary();
             }
             
@@ -921,16 +941,11 @@
                 cartCount.textContent = itemCount.toString();
                 
                 // Update summary
-                subtotalElement.textContent = '$' + subtotal.toFixed(2);
+                subtotalElement.textContent = 'KSh ' + subtotal.toFixed(2);
                 
-                // Calculate tax (9% for example)
-                const tax = subtotal * 0.09;
-                taxElement.textContent = '$' + tax.toFixed(2);
-                
-                // Calculate total
-                const shipping = parseFloat(shippingElement.textContent.replace('$', ''));
-                const total = subtotal + shipping + tax;
-                totalElement.textContent = '$' + total.toFixed(2);
+                // Calculate total without shipping and tax
+                const total = subtotal;
+                totalElement.textContent = 'KSh ' + total.toFixed(2);
             }
             
             // Save cart to localStorage
@@ -946,7 +961,7 @@
                     updateCartSummary(0.1); // 10% discount
                 } else if (promoCode === 'FREESHIP') {
                     alert('Promo code applied! Free shipping added.');
-                    shippingElement.textContent = '$0.00';
+                    // Shipping removed from cart; no changes needed
                     updateCartSummary();
                 } else {
                     alert('Invalid promo code. Please try again.');

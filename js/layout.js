@@ -69,6 +69,21 @@
     updateCartCount();
   }
 
+  function injectHeaderPaddingStyles() {
+    try {
+      if (document.getElementById('header-padding-style')) return;
+      const style = document.createElement('style');
+      style.id = 'header-padding-style';
+      style.textContent = `
+        /* Add comfortable horizontal padding to header on desktop */
+        @media (min-width: 769px) {
+          .container.header-container { padding: 20px 32px; }
+        }
+      `;
+      document.head.appendChild(style);
+    } catch (e) { /* noop */ }
+  }
+
   function injectFloatingCartButton() {
     try {
       const path = String(window.location.pathname || '').replace(/\\/g, '/').toLowerCase();
@@ -103,6 +118,7 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     injectLayout();
+    injectHeaderPaddingStyles();
     injectFloatingCartButton();
   });
 })();

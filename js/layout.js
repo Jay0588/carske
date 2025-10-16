@@ -47,7 +47,7 @@
               <h3>Carske</h3>
               <p>Premium quality t-shirts for everyday comfort and style.</p>
               <div class="social-links">
-                <a href="https://www.instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" style="width: 20px; height: 20px; vertical-align: middle;"></a>
+                <a href="https://www.instagram.com/carske.shop/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" style="width: 20px; height: 20px; vertical-align: middle;"></a>
               </div>
             </div>
             
@@ -55,7 +55,7 @@
               <h3>Customer Care</h3>
               <ul>
                 <li><a href="${PREFIX}contact.html">Contact Us</a></li>
-                <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                <li><a href="https://www.instagram.com/carske.shop/" target="_blank">Instagram</a></li>
               </ul>
             </div>
           </div>

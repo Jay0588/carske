@@ -211,6 +211,9 @@
             padding: 30px;
             margin-bottom: 30px;
         }
+        /* Center the Instagram embed card */
+        .instagram-embed-card { max-width: 700px; margin-left: auto; margin-right: auto; }
+        .instagram-embed-card h3 { text-align: center; }
         
         .info-card:last-child {
             margin-bottom: 0;
@@ -563,10 +566,16 @@
                         <h3>Check Out Our Instagram</h3>
                         <p class="info-text">See new drops, behind-the-scenes, and customer features.</p>
                         <div class="social-links">
-                            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+                            <a href="https://www.instagram.com/carske.shop/" target="_blank" aria-label="Instagram">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png" alt="Instagram" style="width: 20px; height: 20px;">
                             </a>
                         </div>
+                    </div>
+
+                    <!-- Embedded Instagram Profile -->
+                    <div class="info-card instagram-embed-card">
+                      <h3>Our Instagram Profile</h3>
+                      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/carske.shop/" data-instgrm-version="14" style="background:#fff; border:0; border-radius:6px; margin:0 auto; max-width:658px; padding:0; width:100%;"></blockquote>
                     </div>
                 </div>
             </div>
@@ -604,7 +613,7 @@
                     <h3>Customer Care</h3>
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+                        <li><a href="https://www.instagram.com/carske.shop/" target="_blank">Instagram</a></li>
                     </ul>
                 </div>
                 
@@ -617,6 +626,8 @@
         </div>
     </footer>
 
+    <!-- Instagram embed script -->
+    <script async src="https://www.instagram.com/embed.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // FAQ accordion functionality

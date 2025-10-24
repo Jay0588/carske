@@ -214,7 +214,13 @@
         /* Center the Instagram embed card */
         .instagram-embed-card { max-width: 700px; margin-left: auto; margin-right: auto; }
         .instagram-embed-card h3 { text-align: center; }
-        
+        /* Mobile: normalize widths to prevent overflow jitter */
+        @media (max-width: 768px) {
+            .instagram-embed-card { max-width: 100% !important; overflow: hidden; }
+            .instagram-embed-card .instagram-media,
+            .instagram-embed-card blockquote.instagram-media { width: 100% !important; max-width: 100% !important; }
+            .contact-info .info-card { width: 100%; }
+        }
         .info-card:last-child {
             margin-bottom: 0;
         }

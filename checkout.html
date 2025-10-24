@@ -777,6 +777,7 @@
                         <input type="hidden" id="order-sizes-input" name="order_sizes">
                         <input type="hidden" id="order-subtotal-input" name="order_subtotal">
                         <input type="hidden" id="order-shipping-input" name="order_shipping">
+                        <input type="hidden" id="order-platform-fee-input" name="order_platform_fee">
                         <input type="hidden" id="order-total-input" name="order_total">
                         <!-- FormSubmit options -->
                         <input type="hidden" name="_subject" value="New CarsKe Order">
@@ -804,7 +805,10 @@
                         <span id="shipping-cost">KSh 0</span>
                     </div>
                     
-                    
+                    <div class="summary-item">
+                        <span>Platform Fee</span>
+                        <span id="platform-fee">KSh 0</span>
+                    </div>
                     
                     <div class="summary-total">
                         <span>Total</span>
@@ -950,21 +954,24 @@
             function updateTotals() {
                 const subtotalEl = document.getElementById('checkout-subtotal');
                 const shippingCostEl = document.getElementById('shipping-cost');
+                const platformFeeEl = document.getElementById('platform-fee');
                 const totalEl = document.getElementById('order-total');
                 
                 if (!subtotalEl || !shippingCostEl || !totalEl) return;
                 
                 const subtotal = parseFloat(subtotalEl.textContent.replace('KSh','').trim()) || 0;
                 const shipping = getSelectedShippingCost();
-                const total = subtotal + shipping;
+                const platformFee = subtotal * 0.015;
+                const total = subtotal + shipping + platformFee;
                 
                 shippingCostEl.textContent = `KSh ${shipping.toFixed(0)}`;
+                if (platformFeeEl) platformFeeEl.textContent = `KSh ${platformFee.toFixed(0)}`;
                 totalEl.textContent = `KSh ${total.toFixed(0)}`;
                 
                 updatePriceDisplay();
 
                 // Update form hidden inputs with totals
-                updateFormTotals(subtotal, shipping, total);
+                updateFormTotals(subtotal, shipping, total, platformFee);
             }
             
             function populateFormOrderDetails(cart) {
@@ -990,12 +997,14 @@
                 }
             }
 
-            function updateFormTotals(subtotal, shipping, total) {
+            function updateFormTotals(subtotal, shipping, total, platformFee) {
                 const subtotalInput = document.getElementById('order-subtotal-input');
                 const shippingInput = document.getElementById('order-shipping-input');
+                const platformFeeInput = document.getElementById('order-platform-fee-input');
                 const totalInput = document.getElementById('order-total-input');
                 if (subtotalInput) subtotalInput.value = subtotal.toFixed(0);
                 if (shippingInput) shippingInput.value = shipping.toFixed(0);
+                if (platformFeeInput) platformFeeInput.value = (platformFee || 0).toFixed(0);
                 if (totalInput) totalInput.value = total.toFixed(0);
             }
 
@@ -1008,7 +1017,8 @@
 
                 const subtotal = cart.reduce((sum, i) => sum + (i.price || 0) * (i.quantity || 1), 0);
                 const shipping = getSelectedShippingCost();
-                const total = subtotal + shipping;
+                const platformFee = subtotal * 0.015;
+                const total = subtotal + shipping + platformFee;
 
                 const order = {
                     id: 'ORD-' + Date.now(),
@@ -1016,6 +1026,7 @@
                     items: cart.map(i => ({ name: i.name, size: i.size || 'M', price: i.price, quantity: i.quantity, image: i.image })),
                     subtotal,
                     shipping,
+                    platformFee,
                     total,
                     city: cityEl ? cityEl.value : '',
                     email: emailEl ? emailEl.value : '',
@@ -1094,8 +1105,9 @@
                             const subtotalEl = document.getElementById('checkout-subtotal');
                             const subtotal = parseFloat((subtotalEl?.textContent || '0').replace('KSh','').trim()) || 0;
                             const shipping = getSelectedShippingCost();
-                            const total = subtotal + shipping;
-                            updateFormTotals(subtotal, shipping, total);
+                            const platformFee = subtotal * 0.015;
+                            const total = subtotal + shipping + platformFee;
+                            updateFormTotals(subtotal, shipping, total, platformFee);
 
                             // Include payment reference in a hidden field for email context
                             let refInput = document.getElementById('payment-reference-input');

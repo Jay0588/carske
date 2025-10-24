@@ -180,9 +180,10 @@
           .contact-container { display: block; }
           .contact-info { justify-content: flex-start; }
           /* Normalize Instagram embed widths to prevent horizontal jitter */
-          .instagram-embed-card { max-width: 100% !important; overflow: hidden; }
+          .instagram-embed-card { max-width: 100% !important; overflow: hidden; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; align-items: center; }
+          .instagram-embed-card h3 { text-align: center; }
           .instagram-embed-card .instagram-media,
-          .instagram-embed-card blockquote.instagram-media { width: 100% !important; max-width: 100% !important; }
+          .instagram-embed-card blockquote.instagram-media { width: auto !important; max-width: 100% !important; margin-left: auto !important; margin-right: auto !important; }
           /* Make all info cards consistent width on mobile */
           .contact-info .info-card { width: 100%; }
         }

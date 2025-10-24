@@ -179,6 +179,12 @@
           .contact-section { padding-top: 50px; padding-bottom: 96px; }
           .contact-container { display: block; }
           .contact-info { justify-content: flex-start; }
+          /* Normalize Instagram embed widths to prevent horizontal jitter */
+          .instagram-embed-card { max-width: 100% !important; overflow: hidden; }
+          .instagram-embed-card .instagram-media,
+          .instagram-embed-card blockquote.instagram-media { width: 100% !important; max-width: 100% !important; }
+          /* Make all info cards consistent width on mobile */
+          .contact-info .info-card { width: 100%; }
         }
         /* Prevent zoom effects from causing layout jitter */
         .product-card { overflow: hidden; }

@@ -646,35 +646,39 @@
             
             // Contact form now submits directly to FormSubmit via action attribute
             
-            // Newsletter form submission
+            // Newsletter form submission (guarded if form exists)
             const newsletterForm = document.querySelector('.newsletter-form');
-            
-            newsletterForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const emailInput = this.querySelector('input[type="email"]');
-                const email = emailInput.value;
-                
-                if (email) {
-                    // In a real application, you would send this data to a server
-                    alert('Thank you for subscribing to our newsletter!');
-                    emailInput.value = '';
-                } else {
-                    alert('Please enter your email address.');
-                }
-            });
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = this.querySelector('input[type="email"]');
+                    const email = emailInput.value;
+                    
+                    if (email) {
+                        // In a real application, you would send this data to a server
+                        alert('Thank you for subscribing to our newsletter!');
+                        emailInput.value = '';
+                    } else {
+                        alert('Please enter your email address.');
+                    }
+                });
+            }
             
             // Simple cart counter update
             const cartItems = JSON.parse(localStorage.getItem('carskeCart')) || [];
-            const cartCount = document.querySelector('.cart-count');
+            const cartCountEl = document.querySelector('.cart-count');
+            if (cartCountEl) {
+                cartCountEl.textContent = String(cartItems.length);
+            }
             
-            // Update cart count
-            cartCount.textContent = cartItems.length;
-            
-            // Cart icon click event
-            document.querySelector('.cart-icon').addEventListener('click', function() {
-                window.location.href = 'cart.html';
-            });
+            // Cart icon click event (guarded)
+            const cartIconEl = document.querySelector('.cart-icon');
+            if (cartIconEl) {
+                cartIconEl.addEventListener('click', function() {
+                    window.location.href = 'cart.html';
+                });
+            }
         });
     </script>
 </body>

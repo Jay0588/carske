@@ -22,7 +22,7 @@
         .order-items { width: 100%; border-collapse: collapse; }
         .order-items th, .order-items td { padding: 10px 12px; border-bottom: 1px solid #eee; text-align: left; }
         /* Prevent long text from overflowing table/container */
-        .order-body { overflow-x: hidden; }
+        .order-body { overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
         .order-items { table-layout: fixed; }
         .order-items th, .order-items td { word-break: break-word; overflow-wrap: anywhere; hyphens: auto; }
         .order-header .meta { white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
@@ -52,6 +52,10 @@
             nav { flex: 1; }
             nav ul { margin-top: 0; justify-content: center; }
             .cart-icon { margin-left: auto; }
+        }
+        /* Mobile safe area to avoid floating cart button overlap */
+        @media (max-width: 768px) {
+            .orders-list { padding-bottom: 80px; }
         }
     </style>
     <script src="js/layout.js" defer></script>
